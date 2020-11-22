@@ -29,6 +29,9 @@ public class Carte {
         return effet;
     }
 
-    //private Boolean isPlayed () {
-    //}
+    /*private Boolean isPlayed () {
+        if (Joueur.use(this)){
+
+        }
+    }*/
 }
