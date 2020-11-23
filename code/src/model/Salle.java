@@ -10,6 +10,7 @@ public class Salle {
 
     public Salle(int numeroSalle){
         this.numSalle=numeroSalle;
+        ArrayList<Monstre> ListeMonstre=this.listeMonstre;
     }
 
     public static int getNumSalle() {
@@ -28,9 +29,9 @@ public class Salle {
         nbMonstre=listeMonstre.size();
     }
 
-    public static void nvMonstre(Monstre Monstre){
+    public static void nvMonstre(String n, int pdv, Salle salle){
         nbMonstre+=1;
-        listeMonstre.add(Monstre);
+        listeMonstre.add(new Monstre(n,pdv,salle));
     }
 }
 
