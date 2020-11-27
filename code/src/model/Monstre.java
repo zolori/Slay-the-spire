@@ -21,7 +21,22 @@ public class Monstre {
         return pointsDeVie;
     }
 
+    public void setPdv(int pointsDeVie) { this.pointsDeVie = pointsDeVie; }
+
     private String getNom() {
         return nom;
+    }
+
+    private int getDegats() {return degats;}
+
+    protected boolean isBoss(){
+        if (this.getClass().getName()=="Boss"){
+            return true;
+        }
+        return false;
+    }
+
+    public void attaque(Joueur j){
+        j.setPdv(j.getPdv()-degats);
     }
 }

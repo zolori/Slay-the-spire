@@ -10,6 +10,7 @@ public class Salle {
     int nbMonstre;
     private Boolean clean = true;
     private Bonus typeBonus;
+    private int tour=1;
 
     public Salle(Joueur j, int n) {
         joueur = j;
@@ -19,6 +20,8 @@ public class Salle {
     }
 
     public int getNum() { return num; }
+
+    public ArrayList<Carte> getPioche() { return pioche; }
 
     public ArrayList<Monstre> getMonstres() { return monstres; }
 
@@ -30,6 +33,10 @@ public class Salle {
         }
         return nbMonstre;
     }
+
+    public int getTour() { return tour; }
+
+    public void setTour(int tour) { this.tour = tour; }
 
     private Boolean isClean() { return clean; }
 
@@ -46,8 +53,18 @@ public class Salle {
         num++;
         new Salle(joueur, num);
         joueur.setSalle(num);
-        joueur.renforcer(b);
+        joueur.renforcer(b,this);
     }
 
     public void setBonus(Bonus b) { typeBonus = b; }
+
+    public boolean contientBoss(){
+        ArrayList<Monstre> m=this.getMonstres();
+        for (int i=0;i<m.size();i++){
+            if(m.get(i).isBoss()){
+                return true;
+            }
+        }
+        return false;
+    }
 }
