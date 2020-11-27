@@ -5,30 +5,36 @@ public class Carte {
     private String description;
     private int delai;
     private Effets effet;
+    private int pointAction;
 
-    public Carte(String n, String des, int del, Effets e) {
+    public Carte(String n, String des, int del, Effets e, int pa) {
         nom = n;
         description = des;
         delai = del;
         effet = e;
+        pointAction = pa;
     }
 
-    private String getNom() {
+    public String getNom() {
         return nom;
     }
 
-    private String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    private int getDelai() {
+    public int getDelai() {
         return delai;
     }
 
-    private Effets getEffet() {
+    public Effets getEffet() {
         return effet;
     }
 
-    //private Boolean isPlayed () {
-    //}
+    public int getPA() { return pointAction; }
+
+    // A voir comment ameliorer les cartes
+    public void renforcement() {
+        effet = effet;
+    }
 }

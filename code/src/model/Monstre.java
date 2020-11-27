@@ -1,28 +1,27 @@
 package model;
 
-import java.util.ArrayList;
-
-public class Monstre extends Entite{
+public class Monstre {
+    private int numSalle;
+    private int degats;
     private String nom;
     private int pointsDeVie;
-    private int numSalle;
-    private ArrayList<Carte> deck;
 
-    public Monstre(String n, int pdv, int num) {
-        super(n, pdv);
+    public Monstre(String n, int pdv, int num, int d) {
+        nom = n;
+        pointsDeVie = pdv;
         numSalle = num;
-        deck = new ArrayList<>();
+        degats = d;
     }
 
-    public ArrayList<Carte> getDeck() {
-        return deck;
-    }
-
-    public int getNumSalle() {
+    public int getNalle() {
         return numSalle;
     }
 
-    public String toString(){
-        return nom + pointsDeVie;
+    public int getPdv() {
+        return pointsDeVie;
+    }
+
+    private String getNom() {
+        return nom;
     }
 }
