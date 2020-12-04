@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -22,7 +24,10 @@ public class Acceuil extends Application {
     private Button charger;
     @FXML
     private Button supprimer;
-
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private HBox hbox;
 
     public void lancer(ActionEvent actionEvent) throws IOException {
         Parent p = FXMLLoader.load(getClass().getResource("/Salle.fxml"));
@@ -43,6 +48,5 @@ public class Acceuil extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
     }
 }

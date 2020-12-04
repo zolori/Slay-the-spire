@@ -13,7 +13,12 @@
             prefHeight="400.0" prefWidth="600.0">
 
         <center>
-            <Text> Bienvenue !</Text>
+            <VBox>
+                <Text> Bienvenue !</Text>
+                <Button fx:id="bonus" text="Accéder à la page de bonus" onAction="#bonus"/>
+                <Button fx:id="defaite" text="Abandonner" onAction="#defaite"/>
+            </VBox>
         </center>
+
 
 </BorderPane>

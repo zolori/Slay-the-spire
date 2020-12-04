@@ -9,14 +9,15 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.Acceuil"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0"
+            fx:id="borderPane">
 
     <center>
-               <VBox>
+               <HBox fx:id="hbox">
                    <Button fx:id="lancer" text="Lancer une partie" onAction="#lancer"/>
                    <Button fx:id="charger" text="Charger une partie" onAction="#charger"/>
                    <Button fx:id="supprimer" text="Supprimer une partie" onAction="#supprimer"/>
-               </VBox>
+               </HBox>
 
     </center>
 </BorderPane>
