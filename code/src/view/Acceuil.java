@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -33,7 +34,7 @@ public class Acceuil extends Application {
         Parent p = FXMLLoader.load(getClass().getResource("/Salle.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Salle");
-        stage.setScene(new Scene(p, 400, 600));
+        stage.setScene(new Scene(p, 400, 600, Color.BLACK));
         stage.show();
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
         stage.setFullScreen(true);
