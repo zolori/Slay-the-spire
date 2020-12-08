@@ -17,7 +17,7 @@
     </top>
 
     <center>
-        <HBox fx:id="hbox">
+        <HBox>
             <Button fx:id="VieMax" text="Vie Max +" onAction="#VieMax"/>
             <Button fx:id="Regen" text="Régénération Santé" onAction="#Regen"/>
             <Button fx:id="PA" text="Points d'Actions +" onAction="#PA"/>
