@@ -22,7 +22,6 @@ public class Bonus implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        borderpane.setCenter(hbox);
     }
 
     public void VieMax(ActionEvent actionEvent) throws IOException {
