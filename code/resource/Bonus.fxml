@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.Bonus"
-            prefHeight="400.0" prefWidth="600.0">
-
-    <top>
-        <Text> Bonus !</Text>
-    </top>
-
-    <center>
-        <HBox>
-            <Button fx:id="VieMax" text="Vie Max +" onAction="#VieMax"/>
-            <Button fx:id="Regen" text="Régénération Santé" onAction="#Regen"/>
-            <Button fx:id="PA" text="Points d'Actions +" onAction="#PA"/>
-            <Button fx:id="Degats" text="Dégats +" onAction="#Degats"/>
-        </HBox>
-    </center>
-
-</BorderPane>
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Bonus">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="193.0" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="292.0" minHeight="10.0" prefHeight="292.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <HBox alignment="CENTER" prefHeight="370.0" prefWidth="600.0" GridPane.rowIndex="1">
+         <children>
+            <Button fx:id="VieMax" onAction="#VieMax" text="Vie Max +" />
+            <Button fx:id="Regen" onAction="#Regen" text="Régénération Santé" />
+            <Button fx:id="PA" onAction="#PA" text="Points d'Actions +" />
+            <Button fx:id="Degats" onAction="#Degats" text="Dégats +" />
+         </children>
+         <GridPane.margin>
+            <Insets bottom="30.0" />
+         </GridPane.margin>
+      </HBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vous avez droit à un bonus !" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </Text>
+   </children>
+</GridPane>

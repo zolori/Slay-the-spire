@@ -25,6 +25,22 @@ public class Bonus implements Initializable{
     }
 
     public void VieMax(ActionEvent actionEvent) throws IOException {
+        retourAccueil(actionEvent);
+    }
+
+    public void Regen(ActionEvent actionEvent) throws IOException{
+        retourAccueil(actionEvent);
+    }
+
+    public void PA(ActionEvent actionEvent) throws IOException{
+        retourAccueil(actionEvent);
+    }
+
+    public void Degats(ActionEvent actionEvent) throws IOException{
+        retourAccueil(actionEvent);
+    }
+
+    public void retourAccueil(ActionEvent actionEvent) throws IOException {
         Parent p = FXMLLoader.load(getClass().getResource("/Salle.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Salle");
@@ -33,15 +49,4 @@ public class Bonus implements Initializable{
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
         stage.setFullScreen(true);
     }
-
-    public void Regen(ActionEvent actionEvent) {
-    }
-
-    public void PA(ActionEvent actionEvent) {
-    }
-
-    public void Degats(ActionEvent actionEvent) {
-    }
-
-
 }
