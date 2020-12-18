@@ -1,5 +1,4 @@
 package model;
-
 import java.util.ArrayList;
 
 public class Salle {
@@ -47,4 +46,3 @@ public class Salle {
         return oui;
     }
 }
-

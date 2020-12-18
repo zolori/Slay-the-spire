@@ -20,15 +20,11 @@ public class Monstre {
     public int getNalle() {
         return numSalle;
     }
-
-    public int getPdv() {
-        return pointsDeVie;
-    }
+    public int getPdv() { return pointsDeVie; }
 
     public void setPdv(int pointsDeVie) {
         this.pointsDeVie = pointsDeVie;
     }
-
     private String getNom() {
         return nom;
     }

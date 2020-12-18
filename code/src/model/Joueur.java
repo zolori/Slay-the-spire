@@ -26,9 +26,11 @@ public class Joueur {
     public void setNom(String nom) { this.nom.set(nom); }
     public String getNom() { return nom.get();}
     private void soin() { pointsDeVie = pdvMax; }
+
     public ArrayList<Carte> getDeck() {
         return deck;
     }
+
     public int getPdv() { return pointsDeVie; }
     public int getPdvMax() { return pdvMax; }
     public int getPA() { return ptsAction; }
@@ -92,7 +94,7 @@ public class Joueur {
         for (Carte carte: deck) {
             if(carte.getId() == c.getId())
                 deck.remove(carte);
-                pioche
+                //pioche
         }
         return;
     }
