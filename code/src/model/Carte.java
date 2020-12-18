@@ -1,37 +1,48 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 public class Carte {
+    private String id;
     private String nom;
     private String description;
     private int delai;
+    private int valeur;
     private Effets effet;
+    private int ptsAction;
 
-    public Carte(String n, String des, int del, Effets e) {
+    public Carte(String n, String des, int del, int val, Effets e, int pa) {
+        id = UUID.randomUUID().toString();
         nom = n;
         description = des;
         delai = del;
+        valeur = val;
         effet = e;
+        ptsAction = pa;
     }
 
-    private String getNom() {
+    public String getId() { return id; }
+    public String getNom() {
         return nom;
     }
-
-    private String getDescription() {
+    public String getDescription() {
         return description;
     }
-
-    private int getDelai() {
+    public int getDelai() {
         return delai;
     }
+    public int getValeur() { return valeur; }
+    public Effets getEffet() { return effet; }
+    public int getPA() { return ptsAction; }
 
-    private Effets getEffet() {
-        return effet;
+    public ArrayList<Carte> renforcement(ArrayList<Carte> deck, Boolean isboss) {
+        if(isboss)
+            for ( Carte c : deck ) { c.valeur += 6; }
+        else
+            for ( Carte c : deck ) { c.valeur += 3; }
+
+        return deck;
     }
 
-    /*private Boolean isPlayed () {
-        if (Joueur.use(this)){
-
-        }
-    }*/
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Acceuil">
+
+    <center>
+               <HBox fx:id="hbox" alignment="CENTER">
+                   <Button fx:id="lancer" onAction="#lancer" text="Lancer une partie" />
+                   <Button fx:id="charger" onAction="#charger" text="Charger une partie" />
+                   <Button fx:id="supprimer" onAction="#supprimer" text="Supprimer une partie" />
+         <BorderPane.margin>
+            <Insets bottom="50.0" />
+         </BorderPane.margin>
+               </HBox>
+
+    </center>
+   <top>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue " BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="50.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+</BorderPane>
