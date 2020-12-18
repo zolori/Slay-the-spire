@@ -1,23 +1,31 @@
 package model;
 
+import javafx.beans.property.StringProperty;
+
 import java.util.ArrayList;
 
 public class Joueur {
+    private StringProperty nom;
     private int numSalle;
     private ArrayList<Carte> deck;
     private int ptsAction;
-    private String nom;
     private int pointsDeVie;
     private int pdvMax;
 
     public Joueur(String n, int pdv, int pa) {
-        nom = n;
+        setNom(n);
         pdvMax = pdv;
         soin();
         numSalle = 0;
         ptsAction = pa;
         deck = new ArrayList<>();
     }
+
+    public StringProperty nomProperty() { return nom; }
+
+    public void setNom(String nom) { this.nom.set(nom); }
+
+    public String getNom() { return nom.get();}
 
     private void soin() { pointsDeVie = pdvMax; }
 
@@ -30,10 +38,6 @@ public class Joueur {
     }
 
     public int getPdvMax() { return pdvMax; }
-
-    private String getNom() {
-        return nom;
-    }
 
     public int getPA() { return ptsAction; }
 
@@ -88,7 +92,7 @@ public class Joueur {
     }
 
     public void utiliserCarte(Carte c, Monstre cible){
-        if(c.getPA()<getPA() && !c.getUsed()){
+        if(c.getPointAction()<getPA() && !c.getUsed()){
             c.jouerCarte(cible);
         }
         return;

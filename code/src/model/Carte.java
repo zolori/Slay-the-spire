@@ -1,29 +1,34 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 public class Carte {
-    private String nom;
-    private String description;
+    private StringProperty nom;
+    public StringProperty nomProperty() { return nom; }
+    public void setNom(String nom) {this.nom.set(nom);}
+
+    private StringProperty description;
+    public StringProperty descriptionProperty() { return description; }
+    public void setDescription(String description) { this.description.set(description);}
+
+    private IntegerProperty pointAction;
+    public int getPointAction() { return pointAction.get(); }
+    public IntegerProperty pointActionProperty() { return pointAction;}
+    public void setPointAction(int pointAction) { this.pointAction.set(pointAction); }
+
     private int delai;
     private int valeur;
     private Effets effet;
-    private int pointAction;
     private boolean isUsed=false;
 
     public Carte(String n, String des, int del, int val,Effets e, int pa) {
-        nom = n;
-        description = des;
+        setNom(n);
+        setDescription(des);
         delai = del;
         valeur = val;
         effet = e;
-        pointAction = pa;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public String getDescription() {
-        return description;
+        setPointAction(pa);
     }
 
     public int getDelai() {
@@ -39,8 +44,6 @@ public class Carte {
     public Effets getEffet() {
         return effet;
     }
-
-    public int getPA() { return pointAction; }
 
     public void renforcement(Boolean isBoss) {
         if(isBoss){

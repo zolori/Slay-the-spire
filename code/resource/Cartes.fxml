@@ -19,9 +19,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la carte" GridPane.halignment="CENTER" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Action" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Couts en points d'action" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Text fx:id="NomCarte" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la carte" GridPane.halignment="CENTER" />
+            <Text fx:id="Action" strokeType="OUTSIDE" strokeWidth="0.0" text="Action" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Text fx:id="PA" strokeType="OUTSIDE" strokeWidth="0.0" text="Couts en points d'action" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </center>
