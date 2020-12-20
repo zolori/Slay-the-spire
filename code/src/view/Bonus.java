@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.Initializable;
+import model.Joueur;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,11 +22,33 @@ public class Bonus implements Initializable{
     @FXML
     private HBox hbox = new HBox();
 
+    private Joueur joueur;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
     public void VieMax(ActionEvent actionEvent) throws IOException {
+        // Regarder pour la méthode renforcer (Joueur). Passer bonus en paramètres ? -> bonus = enum != classe
+        retourAccueil(actionEvent);
+    }
+
+    public void Regen(ActionEvent actionEvent) throws IOException{
+        // Regarder pour la méthode renforcer (Joueur). Passer bonus en paramètres ? -> bonus = enum != classe
+        retourAccueil(actionEvent);
+    }
+
+    public void PA(ActionEvent actionEvent) throws IOException{
+        // Regarder pour la méthode renforcer (Joueur). Passer bonus en paramètres ? -> bonus = enum != classe
+        retourAccueil(actionEvent);
+    }
+
+    public void Degats(ActionEvent actionEvent) throws IOException{
+        // Regarder pour la méthode renforcer (Joueur). Passer bonus en paramètres ? -> bonus = enum != classe
+        retourAccueil(actionEvent);
+    }
+
+    public void retourAccueil(ActionEvent actionEvent) throws IOException {
         Parent p = FXMLLoader.load(getClass().getResource("/Salle.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Salle");
@@ -33,15 +57,4 @@ public class Bonus implements Initializable{
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
         stage.setFullScreen(true);
     }
-
-    public void Regen(ActionEvent actionEvent) {
-    }
-
-    public void PA(ActionEvent actionEvent) {
-    }
-
-    public void Degats(ActionEvent actionEvent) {
-    }
-
-
 }
