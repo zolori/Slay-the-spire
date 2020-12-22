@@ -17,22 +17,21 @@ public class Monstre {
         degats = d;
     }
 
-    public int getNalle() {
+    public int getSalle() {
         return numSalle;
     }
     public int getPdv() { return pointsDeVie; }
+    public int getDegats() { return degats; }
+    public  String getNom() {
+        return nom;
+    }
 
     public void setPdv(int pointsDeVie) {
         this.pointsDeVie = pointsDeVie;
     }
-    private String getNom() {
-        return nom;
-    }
-
-    private int getDegats() {return degats;}
 
     protected boolean isBoss() {
-        if (this.getClass().getName()=="Boss"){
+        if (this.getClass().getName() == "Boss"){
             return true;
         }
         return false;

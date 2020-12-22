@@ -16,16 +16,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Bonus implements Initializable{
+public class VueBonus /*implements Initializable*/{
     @FXML
-    private BorderPane borderpane =new BorderPane();
+    private BorderPane borderpane = new BorderPane();
     @FXML
     private HBox hbox = new HBox();
 
     private Joueur joueur;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    /*@Override*/
+    public void initialize() {
     }
 
     public void VieMax(ActionEvent actionEvent) throws IOException {

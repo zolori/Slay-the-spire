@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Acceuil extends Application implements Initializable {
+public class Acceuil /*extends Application implements Initializable*/ {
     @FXML
     private Button lancer;
     @FXML
@@ -43,10 +43,10 @@ public class Acceuil extends Application implements Initializable {
         Parent p = FXMLLoader.load(getClass().getResource("/Salle.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Salle");
-        stage.setScene(new Scene(p, 400, 600, Color.BLACK));
+        stage.setScene(new Scene(p, 400, 600));
         stage.show();
-        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        stage.setFullScreen(true);
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide(); //Cache la 1er fenetre
+        stage.setFullScreen(true); // Met en plein ecran
 
     }
     public void charger(ActionEvent actionEvent) {
@@ -56,12 +56,12 @@ public class Acceuil extends Application implements Initializable {
         supprimer.setText("Supression de la partie !");
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-    }
+//    @Override
+//    public void start(Stage stage) throws Exception {
+//    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        texte.setText(joueur.getNom());
-    }
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        texte.setText(joueur.getNom());
+//    }
 }

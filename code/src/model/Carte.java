@@ -1,11 +1,13 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Carte {
     private String id;
-    private String nom;
     private String description;
     private int delai;
     private int valeur;
@@ -14,18 +16,19 @@ public class Carte {
 
     public Carte(String n, String des, int del, int val, Effets e, int pa) {
         id = UUID.randomUUID().toString();
-        nom = n;
+        this.nom.set(n);
         description = des;
         delai = del;
         valeur = val;
         effet = e;
         ptsAction = pa;
     }
+    private StringProperty nom = new SimpleStringProperty();
+        public String getNom() { return nom.get(); }
+        public StringProperty NomProperty() { return nom; }
+        public void setNom(String NomCarte) { this.nom.set(String.valueOf(nom)); }
 
     public String getId() { return id; }
-    public String getNom() {
-        return nom;
-    }
     public String getDescription() {
         return description;
     }
