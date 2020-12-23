@@ -1,0 +1,12 @@
+<?import view.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:controller="view.VueCarte" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+    <ListView fx:id="listView" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="450" prefWidth="450" orientation="HORIZONTAL"
+    onMouseClicked="#handleMouseClick">
+        <cellFactory>
+            <TaskCellFactory/>
+        </cellFactory>
+    </ListView>
+</GridPane>

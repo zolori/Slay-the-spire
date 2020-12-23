@@ -1,31 +1,40 @@
 package view;
 
-import com.sun.glass.ui.Application;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.PasswordField;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import model.Carte;
 import model.Effets;
-import javax.swing.text.html.ImageView;
-import java.awt.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
 public class VueCarte {
-
-    public javafx.scene.control.Label nomCarte;
-
-    private Carte carte = new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1);
+    @FXML
+    private ListView<Carte> listView;
+    private ObservableList<Carte> deck = FXCollections.observableArrayList();
 
     public void initialize() {
-        nomCarte.textProperty().bind(carte.NomProperty());
+        //Cree une liste de carte
+        deck.addAll(
+                new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1, "images/epee.png"),
+                new Carte("Protection", "Description carte", 1, 30, Effets.physique, 1, "images/bouclier.png"),
+                new Carte("Soin", "Description carte", 1, 40, Effets.physique, 1, "images/coeur.png")
+        );
+        //Bind la liste a la ListView
+        listView.setItems(deck);
+        //listView.setCellFactory(new TaskCellFactory());
     }
 
+    @FXML public void handleMouseClick(MouseEvent arg0) {
+        int selectedCarteIndex = listView.getSelectionModel().getSelectedIndex();
+        deck.set(selectedCarteIndex, new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1, "images/epee.png"));
+        //selectedCarte.setDescription("Updated");
+        //custoListView.refresh();
+        //custoListView.getSelectionModel().clearSelection();
+        //int carteIndex = cartes.indexOf(selectedCarte);
+        //cartes.remove(carteIndex);
+        //cartes.add(carteIndex, new Carte("Defendre", "defendre.png", "Se proteger avec un bouclier ("+carteIndex+")"));
+    }
 }
 

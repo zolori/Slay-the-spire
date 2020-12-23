@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+
+<fx:root type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <graphic>
+        <VBox alignment="CENTER">
+            <children>
+                <ImageView fitHeight="48.0" fitWidth="48.0" fx:id="image" />
+                <Label fx:id="titre"/>
+                <Label fx:id="description"/>
+            </children>
+        </VBox>
+    </graphic>
+</fx:root>
