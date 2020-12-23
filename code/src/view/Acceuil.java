@@ -24,9 +24,9 @@ public class Acceuil /*extends Application implements Initializable*/ {
         Stage stage = new Stage();
         stage.setTitle("Salle");
         stage.setScene(new Scene(p, 400, 600));
-        stage.show();
         stage.setFullScreen(true); // Met en plein ecran
-        ((Node)(actionEvent.getSource())).getScene().getWindow().hide(); //Cache la 1er fenetre
+        stage.show();
+        //((Node)(actionEvent.getSource())).getScene().getWindow().hide(); //Cache la 1er fenetre
     }
     public void charger(ActionEvent actionEvent) {
         charger.setText("Chargement de la partie !");

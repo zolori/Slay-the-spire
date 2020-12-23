@@ -7,7 +7,7 @@
     <graphic>
         <VBox alignment="CENTER">
             <children>
-                <ImageView fitHeight="48.0" fitWidth="48.0" fx:id="image" />
+                <ImageView fitHeight="300.0" fitWidth="300.0" fx:id="image" />
                 <Label fx:id="titre"/>
                 <Label fx:id="description"/>
             </children>
