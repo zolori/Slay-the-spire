@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class SalleController /*implements Initializable*/ {
     private GridPane terrain= new GridPane();
     private Label lbl;
+    private Joueur joueur;
     @FXML
     private ListView<Carte> deckListView;
     private ObservableList<Carte> deck = FXCollections.observableArrayList();
@@ -71,11 +72,15 @@ public class SalleController /*implements Initializable*/ {
 
     @FXML public void handleMouseClick(MouseEvent arg0) {
         int selectedCarteIndex = deckListView.getSelectionModel().getSelectedIndex();
-        deck.set(selectedCarteIndex, new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1, "images/epee.png"));
+        this.joueur.remplaceDeckCarte(selectedCarteIndex);
     }
 
-    public void setDeck(ArrayList<Carte> d){
-        deck.addAll(d);
-        deckListView.setItems(deck);
+    public void setJoueur(Joueur j) {
+        this.joueur = j;
+        initDeck();
+    }
+
+    public void initDeck() {
+        deckListView.setItems(this.joueur.getDeck());
     }
 }

@@ -27,7 +27,7 @@ public class Acceuil /*extends Application implements Initializable*/ {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Salle.fxml"));
         Parent p = loader.load();
         SalleController controller = loader.getController();
-        controller.setDeck(j.getDeck());
+        controller.setJoueur(j);
 
         Stage stage = new Stage();
         stage.setTitle("Salle");

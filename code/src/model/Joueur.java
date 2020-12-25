@@ -3,27 +3,29 @@ package model;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Joueur {
     private int numSalle;
-    private ArrayList<Carte> deck;
+    private ObservableList<Carte> deck;
     private int ptsAction;
     private int pointsDeVie;
     private int pdvMax;
-    private ArrayList<Carte> pioche;
+    Random rand = new Random();
 
-    public Joueur(String n, int pdv, int pa, ArrayList<Carte> p) {
+    public Joueur(String n, int pdv, int pa, int nbDeckCartes) {
         setNom(n);
         pdvMax = pdv;
         soin();
         numSalle = 0;
         ptsAction = pa;
-        deck = new ArrayList<>();
-        pioche = p;
-        initDeck();
+        deck = FXCollections.observableArrayList();
+        initDeck(nbDeckCartes);
     }
 
     private StringProperty nom = new SimpleStringProperty();
@@ -37,8 +39,7 @@ public class Joueur {
     public void setSalle(int n) { numSalle = n; }
     public int getPdvMax() { return pdvMax; }
     public int getPA() { return ptsAction; }
-    public ArrayList<Carte> getDeck() { return deck; }
-    public ArrayList<Carte> getPioche() { return pioche; }
+    public ObservableList<Carte> getDeck() { return deck; }
 
     private void soin() {
         pointsDeVie = pdvMax;
@@ -46,7 +47,6 @@ public class Joueur {
 
     public void renforcer (Bonus b, Salle s) {
         //On récupère la pioche
-        //ArrayList<Carte> cartes = s.getPioche();
         Boolean isBoss = false;
 
         //On regarde si il y avait un boss dans la salle
@@ -55,9 +55,9 @@ public class Joueur {
             isBoss = true; //Si il y a un boss, on passe la variable a true
             switch (b) {
                 case Degats:
-                    for ( Carte c : pioche ) {
-                        deck = c.renforcement(deck, isBoss); //On utilise le renforcement de manière amélioré
-                    }
+//                    for ( Carte c : pioche ) {
+//                        deck = c.renforcement(deck.toArray(), isBoss); //On utilise le renforcement de manière amélioré
+//                    }
                     break;
                 case VieMax:
                     pdvMax=getPdvMax()+10; //On augmente le maximum de pdv
@@ -75,9 +75,9 @@ public class Joueur {
             switch (b) {
                 //Bonus simples
                 case Degats:
-                    for ( Carte c : pioche ) {
-                        deck = c.renforcement(deck, isBoss); //On utilise le renforcement de manière amélioré
-                    }
+//                    for ( Carte c : pioche ) {
+//                        deck = c.renforcement(deck, isBoss); //On utilise le renforcement de manière amélioré
+//                    }
                     break;
                 case VieMax:
                     pdvMax = getPdvMax() + 5; //On augmente le maximum de pdv
@@ -93,31 +93,37 @@ public class Joueur {
     }
 
     // A finir -------------------------------------------------------|
-    public void utiliserCarte(Carte c, Monstre cible){
-        if(c.getPA() < this.getPA()){
-            return;
-        }
-        for (Carte carte: deck) {
-            if(carte.getId() == c.getId())
-                deck.remove(carte);
-                pioche.add(carte);//pioche
-        }
-        return;
+//    public void utiliserCarte(Carte c, Monstre cible){
+//        if(c.getPA() < this.getPA()){
+//            return;
+//        }
+//        for (Carte carte: deck) {
+//            if(carte.getId() == c.getId())
+//                deck.remove(carte);
+//                pioche.add(carte);//pioche
+//        }
+//        return;
+//    }
+
+    public void remplaceDeckCarte(int i) {
+        deck.set(i, randCarte());
     }
 
-    private Carte pop() {
-        return pioche.remove(0);
-    }
-
-    private void addCarteToDeck(){
-        if (pioche.size() == 0)
-            return;
-        deck.add(pop());
-    }
-
-    private void initDeck() {
-        for (int i = 0; i < 3; i++) {
-            addCarteToDeck();
+    public void initDeck(int nb_cartes) {
+        for (int i = 0; i < nb_cartes; i++) {
+            deck.add(randCarte());
         }
     }
+
+    private Carte randCarte() {
+        int n = rand.nextInt(3);
+
+        if (n == 0)
+            return new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1, "images/epee.png");
+        else if (n == 1)
+            return new Carte("Protection", "Description carte", 1, 30, Effets.physique, 1, "images/bouclier.png");
+        else
+            return new Carte("Soin", "Description carte", 1, 40, Effets.physique, 1, "images/coeur.png");
+    }
+
 }
