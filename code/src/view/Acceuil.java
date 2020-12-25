@@ -1,12 +1,10 @@
 package view;
 
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import java.io.IOException;
@@ -20,7 +18,11 @@ public class Acceuil /*extends Application implements Initializable*/ {
     private Button supprimer;
 
     public void lancer(ActionEvent actionEvent) throws IOException {
-        Parent p = FXMLLoader.load(getClass().getResource("/Salle.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Salle.fxml"));
+        Parent p = loader.load();
+        SalleController controller = loader.getController();
+        controller.setDeck();
+
         Stage stage = new Stage();
         stage.setTitle("Salle");
         stage.setScene(new Scene(p, 400, 600));

@@ -1,6 +1,8 @@
 package model;
 
+import javafx.beans.Observable;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -13,31 +15,34 @@ public class Joueur {
     private int pdvMax;
     private ArrayList<Carte> pioche;
 
-    public Joueur(String n, int pdv, int pa) {
+    public Joueur(String n, int pdv, int pa, ArrayList<Carte> p) {
         setNom(n);
         pdvMax = pdv;
         soin();
         numSalle = 0;
         ptsAction = pa;
         deck = new ArrayList<>();
+        pioche = p;
     }
 
     public StringProperty nomProperty() { return nom; }
     public void setNom(String nom) { this.nom.set(nom); }
-    public String getNom() { return nom.get();}
-    private void soin() { pointsDeVie = pdvMax; }
-
-    public ArrayList<Carte> getDeck() {
-        return deck;
+    public String getNom() { return nom.get(); }
+    public ObservableList<Carte> getDeck() {
+        return (ObservableList<Carte>) deck;
     }
 
     public int getPdv() { return pointsDeVie; }
-    public int getPdvMax() { return pdvMax; }
-    public int getPA() { return ptsAction; }
+    public void setPdv(int pointsDeVie) { this.pointsDeVie = pointsDeVie; }
     public int getSalle() { return numSalle; }
     public void setSalle(int n) { numSalle = n; }
-    public void setPdv(int pointsDeVie) { this.pointsDeVie = pointsDeVie; }
+    public int getPdvMax() { return pdvMax; }
+    public int getPA() { return ptsAction; }
     public ArrayList<Carte> getPioche() { return pioche; }
+    
+    private void soin() { 
+        pointsDeVie = pdvMax; 
+    }
 
     public void renforcer (Bonus b, Salle s) {
         //On récupère la pioche
@@ -87,14 +92,15 @@ public class Joueur {
         }
     }
 
+    // A finir -------------------------------------------------------|
     public void utiliserCarte(Carte c, Monstre cible){
-        if(c.getPA() < getPA()){
-            //c.jouerCarte(cible);
+        if(c.getPA() < this.getPA()){
+            return;
         }
         for (Carte carte: deck) {
             if(carte.getId() == c.getId())
                 deck.remove(carte);
-                //pioche
+                pioche.add(carte);//pioche
         }
         return;
     }

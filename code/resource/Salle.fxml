@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.ListView?>
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VueSalle">
+<?import javafx.geometry.Insets?>
+<?import view.TaskCellFactory?>
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SalleController">
    <top>
       <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -51,7 +53,17 @@
    </center>
 
    <bottom>
-        <fx:include source="/ListView.fxml" />
+       <GridPane xmlns:fx="http://javafx.com/fxml" alignment="center">
+           <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+           <children>
+               <ListView fx:id="deckListView" GridPane.columnIndex="0" GridPane.rowIndex="0" orientation="HORIZONTAL"
+                         onMouseClicked="#handleMouseClick" minWidth="945">
+                   <cellFactory>
+                       <TaskCellFactory/>
+                   </cellFactory>
+               </ListView>
+           </children>
+       </GridPane>
    </bottom>
 
 </BorderPane>

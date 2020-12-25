@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import model.Joueur;
 
-public class VueBonus /*implements Initializable*/{
+public class BonusController /*implements Initializable*/{
     @FXML
     private BorderPane borderpane = new BorderPane();
     @FXML
