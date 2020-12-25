@@ -1,13 +1,13 @@
 package model;
 
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
 public class Joueur {
-    private StringProperty nom;
     private int numSalle;
     private ArrayList<Carte> deck;
     private int ptsAction;
@@ -23,14 +23,13 @@ public class Joueur {
         ptsAction = pa;
         deck = new ArrayList<>();
         pioche = p;
+        initDeck();
     }
 
-    public StringProperty nomProperty() { return nom; }
-    public void setNom(String nom) { this.nom.set(nom); }
-    public String getNom() { return nom.get(); }
-    public ObservableList<Carte> getDeck() {
-        return (ObservableList<Carte>) deck;
-    }
+    private StringProperty nom = new SimpleStringProperty();
+    public String getNom() { return nomProperty().get(); }
+    public void setNom(String value) { nomProperty().set(value); }
+    public StringProperty nomProperty() { return this.nom; }
 
     public int getPdv() { return pointsDeVie; }
     public void setPdv(int pointsDeVie) { this.pointsDeVie = pointsDeVie; }
@@ -38,10 +37,11 @@ public class Joueur {
     public void setSalle(int n) { numSalle = n; }
     public int getPdvMax() { return pdvMax; }
     public int getPA() { return ptsAction; }
+    public ArrayList<Carte> getDeck() { return deck; }
     public ArrayList<Carte> getPioche() { return pioche; }
-    
-    private void soin() { 
-        pointsDeVie = pdvMax; 
+
+    private void soin() {
+        pointsDeVie = pdvMax;
     }
 
     public void renforcer (Bonus b, Salle s) {
@@ -105,4 +105,19 @@ public class Joueur {
         return;
     }
 
+    private Carte pop() {
+        return pioche.remove(0);
+    }
+
+    private void addCarteToDeck(){
+        if (pioche.size() == 0)
+            return;
+        deck.add(pop());
+    }
+
+    private void initDeck() {
+        for (int i = 0; i < 3; i++) {
+            addCarteToDeck();
+        }
+    }
 }

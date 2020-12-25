@@ -16,13 +16,14 @@ import model.*;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SalleController /*implements Initializable*/ {
     private GridPane terrain= new GridPane();
     private Label lbl;
     @FXML
     private ListView<Carte> deckListView;
-    private ObservableList<Carte> pioche = FXCollections.observableArrayList();
+    private ObservableList<Carte> deck = FXCollections.observableArrayList();
 
     public void bonus(ActionEvent actionEvent) throws IOException {
         Parent p = FXMLLoader.load(getClass().getResource("/Bonus.fxml"));
@@ -70,19 +71,11 @@ public class SalleController /*implements Initializable*/ {
 
     @FXML public void handleMouseClick(MouseEvent arg0) {
         int selectedCarteIndex = deckListView.getSelectionModel().getSelectedIndex();
-        pioche.set(selectedCarteIndex, new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1, "images/epee.png"));
+        deck.set(selectedCarteIndex, new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1, "images/epee.png"));
     }
 
-    public void setDeck(){
-//        Random rand = new Random();
-//        if (Manager.getJoueur().getSalle() == 1){
-//            ObservableList<Carte> deck = pioche.get(rand.nextInt(pioche.size()));
-//        }
-        pioche.addAll(
-                new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1, "images/epee.png"),
-                new Carte("Protection", "Description carte", 1, 30, Effets.physique, 1, "images/bouclier.png"),
-                new Carte("Soin", "Description carte", 1, 40, Effets.physique, 1, "images/coeur.png")
-        );
-        deckListView.setItems(pioche);
+    public void setDeck(ArrayList<Carte> d){
+        deck.addAll(d);
+        deckListView.setItems(deck);
     }
 }

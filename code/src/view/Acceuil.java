@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
+import model.Joueur;
+import model.Manager;
+
 import java.io.IOException;
 
 public class Acceuil /*extends Application implements Initializable*/ {
@@ -18,10 +21,13 @@ public class Acceuil /*extends Application implements Initializable*/ {
     private Button supprimer;
 
     public void lancer(ActionEvent actionEvent) throws IOException {
+        Manager leManager = new Manager();
+        Joueur j = leManager.createJoueur("Jean", 300, 1);
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Salle.fxml"));
         Parent p = loader.load();
         SalleController controller = loader.getController();
-        controller.setDeck();
+        controller.setDeck(j.getDeck());
 
         Stage stage = new Stage();
         stage.setTitle("Salle");
