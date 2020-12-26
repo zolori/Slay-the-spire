@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Salle {
     private int numSalle;
-    private static ArrayList<Monstre> listeMonstre;
+    private static Monstre monstre;
     private static int nbMonstre = 0;
     private int nbTour;
 
     public Salle(int numeroSalle) {
         numSalle = numeroSalle;
-        listeMonstre = new ArrayList<Monstre>();
+        monstre = new Monstre("Orcs",100,numSalle,10);
         if(getNumSalle()%5 == 0) {
             nvMonstre("Boss", 200, getNumSalle(), 20);
         }
@@ -18,32 +18,28 @@ public class Salle {
             nvMonstre("Orc", 100, getNumSalle(), 10);
     }
 
-    public static ArrayList<Monstre> getListeMonstre() {
-        return listeMonstre;
+    public Monstre getMonstre() {
+        return monstre;
     }
-    public static void setListeMonstre(ArrayList<Monstre> Monstres) {
-        Salle.listeMonstre = Monstres;
+    public  void setMonstre(Monstre Monstres) {
+        this.monstre = Monstres;
     }
 
-    public static void nvMonstre(String n, int pdv, int salle, int degats){
+    public void nvMonstre(String n, int pdv, int salle, int degats){
         nbMonstre += 1;
-        listeMonstre.add(new Monstre(n, pdv, salle, degats));
+        this.monstre = new Monstre(n, pdv, salle, degats);
     }
 
     public int getNumSalle() {
         return numSalle;
     }
-    public void getNbMonstre(){
-        nbMonstre = listeMonstre.size();
-    }
     public int getNbTour() { return nbTour; }
 
     public boolean contientBoss() {
         boolean oui = false;
-        for (Monstre m : listeMonstre ) {
-            if (m.isBoss())
+        if (monstre.isBoss())
                 oui = true ;
-        }
         return oui;
     }
+
 }

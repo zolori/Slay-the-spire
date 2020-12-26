@@ -15,7 +15,7 @@ public class Boss extends Monstre{
     public void superAttaque(Salle s, Joueur j) {
         //Si le numéro du tour correspond a celui de la super attaque, on lance cette dernière
         if (s.getNbTour()%temps == 0) {
-            j.setPdv(j.getPdv() - Attaqueforte);
+            j.setPointsDeVie(j.getPointsDeVie() - Attaqueforte);
         }
         else{
             attaque(j);

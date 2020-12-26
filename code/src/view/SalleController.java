@@ -5,19 +5,43 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 import model.*;
+
 import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.io.IOException;
 
 public class SalleController {
-    private GridPane terrain= new GridPane();
+    private Manager manager=new Manager();
+    @FXML
+    private GridPane terrain;
+    @FXML
+    private VBox ptsdevie;
+    @FXML
+    private ImageView hero;
+    @FXML
+    private Text vie;
+    @FXML
+    private Text vieMonstre;
+    @FXML
+    private ImageView monstre;
+    @FXML
+    private Text vietot;
+
     private Label lbl;
     private Joueur joueur;
     @FXML
@@ -45,6 +69,7 @@ public class SalleController {
 
     @FXML public void handleMouseClick(MouseEvent arg0) {
         int selectedCarteIndex = deckListView.getSelectionModel().getSelectedIndex();
+        manager.useCard(deckListView.getSelectionModel().getSelectedItem());
         this.joueur.remplaceDeckCarte(selectedCarteIndex);
     }
 
@@ -57,28 +82,19 @@ public class SalleController {
         deckListView.setItems(this.joueur.getDeck());
     }
 
-    public void initialize(/*URL url, ResourceBundle resourceBundle*/) {
-//        Manager.salleActuelle.getlisteMonstre().addListener(new ListChangeListener<Monstre>()) {
-//            @Override
-//            public void onChanged(Change<? extends Monstre> c) {
-//                int i=0;
-//                c.next();
-//                for (Monstre monstre: c.getAddedSubList()){
-//                    i++;
-//                    ImageView monstreAAfficher= new ImageView();
-//                    monstreAAfficher.setImage(new Image(getClass().getResource("/Images/Orcs.jpg").toExternalForm()));
-//                    switch(i) {
-//                        case 1:
-//                            terrain.add(monstreAAfficher, 0, 0);
-//                        case 2:
-//                            terrain.add(monstreAAfficher, 1, 0);
-//                        case 3:
-//                            terrain.add(monstreAAfficher, 0, 1);
-//                        case 4:
-//                            terrain.add(monstreAAfficher, 1, 1);
-//                    }
-//                }
-//            }
-//        });
+    public void initialize() {
+        manager.createSalle(1);
+        Joueur joueur= manager.getJoueur();
+        hero.setImage(new Image(getClass().getResource(joueur.getImage()).toExternalForm()));
+        hero.setFitHeight(100);
+        hero.setFitWidth(100);
+        vie.textProperty().bindBidirectional(joueur.pdvProperty(),new NumberStringConverter());
+        vietot.textProperty().bindBidirectional(joueur.pdvMaxProperty(),new NumberStringConverter());
+
+        Monstre monstres = manager.getSalleActuelle().getMonstre();
+        monstre.setImage(new Image(getClass().getResource(monstres.getImage()).toExternalForm()));
+        monstre.setFitHeight(150);
+        monstre.setFitWidth(150);
+        vieMonstre.textProperty().bindBidirectional(monstres.pointsDeVieProperty(),new NumberStringConverter());
     }
 }

@@ -1,44 +1,62 @@
 package model;
 
+import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
+
 import java.util.Random;
 
 public class Joueur {
     private int numSalle;
     private ObservableList<Carte> deck;
     private int ptsAction;
-    private int pointsDeVie;
-    private int pdvMax;
+    private String image;
     Random rand = new Random();
 
     public Joueur(String n, int pdv, int pa, int nbDeckCartes) {
         setNom(n);
-        pdvMax = pdv;
+        setPdvMax(pdv);
+        setPointsDeVie(getPdvMax());
         soin();
         numSalle = 0;
         ptsAction = pa;
         deck = FXCollections.observableArrayList();
         initDeck(nbDeckCartes);
+        image="/images/hero.png";
     }
 
-    private StringProperty nom = new SimpleStringProperty();
-    public String getNom() { return nomProperty().get(); }
-    public void setNom(String value) { nomProperty().set(value); }
-    public StringProperty nomProperty() { return this.nom; }
+    private IntegerProperty pdvMax= new SimpleIntegerProperty();
+        public int getPdvMax(){return pdvMaxProperty().get();}
+        public IntegerProperty pdvMaxProperty() { return pdvMax; }
+        public void setPdvMax(int pdvMax) { this.pdvMax.set(pdvMax); }
 
-    public int getPdv() { return pointsDeVie; }
-    public void setPdv(int pointsDeVie) { this.pointsDeVie = pointsDeVie; }
+    private StringProperty nom = new SimpleStringProperty();
+        public String getNom() { return nomProperty().get(); }
+        public void setNom(String value) { nomProperty().set(value); }
+        public StringProperty nomProperty() { return this.nom; }
+
+    private IntegerProperty pdv = new SimpleIntegerProperty();
+        public int getPointsDeVie(){return pdvProperty().get();}
+        public void setPointsDeVie(int value){ pdvProperty().set(value);}
+        public IntegerProperty pdvProperty(){return this.pdv;}
+
+
     public int getSalle() { return numSalle; }
     public void setSalle(int n) { numSalle = n; }
-    public int getPdvMax() { return pdvMax; }
+
     public int getPA() { return ptsAction; }
     public ObservableList<Carte> getDeck() { return deck; }
 
+
+    public String getImage(){return image;}
+
     private void soin() {
-        pointsDeVie = pdvMax;
+        setPointsDeVie(getPdvMax());
     }
 
     public void renforcer (Bonus b, Salle s) {
@@ -56,13 +74,13 @@ public class Joueur {
 //                    }
                     break;
                 case VieMax:
-                    pdvMax=getPdvMax()+10; //On augmente le maximum de pdv
+                    setPdvMax(getPdvMax()+10); //On augmente le maximum de pdv
                     break;
                 case PointAction:
                     ptsAction=ptsAction+2; //On augmente les ptsAction de 2
                     break;
                 case Regeneration:
-                    pdvMax=getPdvMax()+5; //On augmente le maximum de pdv
+                    setPointsDeVie(getPointsDeVie()+5); //On augmente le maximum de pdv
                     soin(); // On remet le joueur au maximum de ses pts de vie
                     break;
             }
@@ -76,7 +94,7 @@ public class Joueur {
 //                    }
                     break;
                 case VieMax:
-                    pdvMax = getPdvMax() + 5; //On augmente le maximum de pdv
+                    setPdvMax(getPdvMax() + 5); //On augmente le maximum de pdv
                     break;
                 case PointAction:
                     ptsAction++; //On augmente les ptsAction de 1
@@ -109,4 +127,14 @@ public class Joueur {
             return new Carte("Soin", "Description carte", 1, 40, Effets.physique, 1, "images/coeur.png");
     }
 
+    public void protect(int valeur) {
+            setPdvMax(getPdvMax()+valeur);
+    }
+
+    public void soigne(int valeur) {
+            if (getPointsDeVie()+valeur<getPdvMax())
+                setPointsDeVie(getPointsDeVie()+valeur);
+            else
+                setPointsDeVie(getPdvMax());
+    }
 }
