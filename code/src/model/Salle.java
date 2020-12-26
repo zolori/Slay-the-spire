@@ -42,7 +42,7 @@ public class Salle {
         boolean oui = false;
         for (Monstre m : listeMonstre ) {
             if (m.isBoss())
-                oui = true;
+                oui = true ;
         }
         return oui;
     }
