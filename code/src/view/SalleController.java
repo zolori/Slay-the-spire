@@ -26,7 +26,8 @@ import java.awt.image.ImageProducer;
 import java.io.IOException;
 
 public class SalleController {
-    private Manager manager=new Manager();
+    private Manager leManager= new Manager();
+    private Joueur joueur;
     @FXML
     private GridPane terrain;
     @FXML
@@ -41,9 +42,7 @@ public class SalleController {
     private ImageView monstre;
     @FXML
     private Text vietot;
-
     private Label lbl;
-    private Joueur joueur;
     @FXML
     private ListView<Carte> deckListView;
     private ObservableList<Carte> deck = FXCollections.observableArrayList();
@@ -69,13 +68,17 @@ public class SalleController {
 
     @FXML public void handleMouseClick(MouseEvent arg0) {
         int selectedCarteIndex = deckListView.getSelectionModel().getSelectedIndex();
-        manager.useCard(deckListView.getSelectionModel().getSelectedItem());
+        leManager.useCard(deckListView.getSelectionModel().getSelectedItem());
         this.joueur.remplaceDeckCarte(selectedCarteIndex);
     }
 
-    public void setJoueur(Joueur j) {
-        this.joueur = j;
+    public void setJoueur(String nom, int pdv, int pa,int nbcartes) {
+        this.joueur = new Joueur(nom,pdv,pa,nbcartes);
         initDeck();
+    }
+
+    public void setManager(Manager leManager) {
+        this.leManager=leManager;
     }
 
     public void initDeck() {
@@ -83,18 +86,23 @@ public class SalleController {
     }
 
     public void initialize() {
-        manager.createSalle(1);
-        Joueur joueur= manager.getJoueur();
+        leManager.createSalle(1);
+        Joueur joueur= leManager.getJoueur();
         hero.setImage(new Image(getClass().getResource(joueur.getImage()).toExternalForm()));
         hero.setFitHeight(100);
         hero.setFitWidth(100);
         vie.textProperty().bindBidirectional(joueur.pdvProperty(),new NumberStringConverter());
         vietot.textProperty().bindBidirectional(joueur.pdvMaxProperty(),new NumberStringConverter());
 
-        Monstre monstres = manager.getSalleActuelle().getMonstre();
+        Monstre monstres = leManager.getSalleActuelle().getMonstre();
         monstre.setImage(new Image(getClass().getResource(monstres.getImage()).toExternalForm()));
         monstre.setFitHeight(150);
         monstre.setFitWidth(150);
         vieMonstre.textProperty().bindBidirectional(monstres.pointsDeVieProperty(),new NumberStringConverter());
+    }
+
+
+    public Manager getManager() {
+        return leManager;
     }
 }

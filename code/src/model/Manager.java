@@ -3,7 +3,7 @@ package model;
 public class Manager {
     private static Salle salle;
     private int salleActuelle;
-    private Joueur joueur=createJoueur("Moi",100,3);
+    private Joueur joueur= new Joueur("Hero",400,3,3);
 
     public Manager(){
         setSalleActuelle(1);

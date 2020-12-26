@@ -20,13 +20,11 @@ public class Acceuil {
     private Button supprimer;
 
     public void lancer(ActionEvent actionEvent) throws IOException {
-        Manager leManager = new Manager();
-        Joueur j = leManager.createJoueur("Jean", 300, 1);
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Salle.fxml"));
         Parent p = loader.load();
         SalleController controller = loader.getController();
-        controller.setJoueur(j);
+        controller.setJoueur("Oui",300,3,3);
+        Manager leManager=controller.getManager();
 
         Stage stage = new Stage();
         stage.setTitle("Salle");
