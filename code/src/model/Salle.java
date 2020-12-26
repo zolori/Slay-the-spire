@@ -1,9 +1,9 @@
 package model;
+
 import java.util.ArrayList;
 
 public class Salle {
     private int num;
-    //private ArrayList<Carte> pioche;
     private Joueur joueur;
     private static int numSalle;
     private static ArrayList<Monstre> listeMonstre;

@@ -1,31 +1,30 @@
 package view;
 
-import javafx.collections.ListChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import model.Manager;
-import model.Monstre;
-import javafx.scene.image.ImageView;
+import model.*;
+
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import model.Manager;
-import model.Salle;
+import java.util.ArrayList;
 
-public class VueSalle /*implements Initializable*/ {
+public class SalleController /*implements Initializable*/ {
     private GridPane terrain= new GridPane();
     private Label lbl;
+    private Joueur joueur;
+    @FXML
+    private ListView<Carte> deckListView;
+    private ObservableList<Carte> deck = FXCollections.observableArrayList();
 
     public void bonus(ActionEvent actionEvent) throws IOException {
         Parent p = FXMLLoader.load(getClass().getResource("/Bonus.fxml"));
@@ -69,5 +68,19 @@ public class VueSalle /*implements Initializable*/ {
 //                }
 //            }
 //        });
+    }
+
+    @FXML public void handleMouseClick(MouseEvent arg0) {
+        int selectedCarteIndex = deckListView.getSelectionModel().getSelectedIndex();
+        this.joueur.remplaceDeckCarte(selectedCarteIndex);
+    }
+
+    public void setJoueur(Joueur j) {
+        this.joueur = j;
+        initDeck();
+    }
+
+    public void initDeck() {
+        deckListView.setItems(this.joueur.getDeck());
     }
 }

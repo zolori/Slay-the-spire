@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
-
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.control.Label?>
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VueSalle">
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.geometry.Insets?>
+<?import view.TaskCellFactory?>
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SalleController">
    <top>
       <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -53,23 +53,17 @@
    </center>
 
    <bottom>
-      <GridPane minHeight="100.0" BorderPane.alignment="CENTER"
-                style="-fx-border-style: solid; -fx-border-width: 1; -fx-border-color: black;">
-          <columnConstraints >
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          </columnConstraints>
-          <rowConstraints>
-              <RowConstraints minHeight="50.0" prefHeight="400.0" vgrow="SOMETIMES" />
-          </rowConstraints>
-
-          <VBox>
-              <Label fx:id="nomCarte"/>
-              <ImageView />
-              <Text/>
-          </VBox>
-      </GridPane>
+       <GridPane xmlns:fx="http://javafx.com/fxml" alignment="center">
+           <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+           <children>
+               <ListView fx:id="deckListView" GridPane.columnIndex="0" GridPane.rowIndex="0" orientation="HORIZONTAL"
+                         onMouseClicked="#handleMouseClick" minWidth="945">
+                   <cellFactory>
+                       <TaskCellFactory/>
+                   </cellFactory>
+               </ListView>
+           </children>
+       </GridPane>
    </bottom>
 
 </BorderPane>

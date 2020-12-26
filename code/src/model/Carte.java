@@ -8,30 +8,38 @@ import java.util.UUID;
 
 public class Carte {
     private String id;
-    private String description;
     private int delai;
     private int valeur;
     private Effets effet;
     private int ptsAction;
 
-    public Carte(String n, String des, int del, int val, Effets e, int pa) {
+    public Carte(String n, String des, int del, int val, Effets e, int pa, String img) {
         id = UUID.randomUUID().toString();
         this.nom.set(n);
-        description = des;
+        description.set(des);
         delai = del;
         valeur = val;
         effet = e;
         ptsAction = pa;
+        imageUrl.set(img);
     }
-    private StringProperty nom = new SimpleStringProperty();
+
+    private final StringProperty nom = new SimpleStringProperty();
         public String getNom() { return nom.get(); }
-        public StringProperty NomProperty() { return nom; }
-        public void setNom(String NomCarte) { this.nom.set(String.valueOf(nom)); }
+        public StringProperty nomProperty() { return nom; }
+        public void setNom(String name) { this.nom.set(name); }
+
+    private final StringProperty imageUrl = new SimpleStringProperty();
+        public String getImageUrl() { return imageUrl.get(); }
+        public StringProperty imageUrlProperty() { return imageUrl; }
+        public void setImageUrl(String imageUrl) { this.imageUrl.set(imageUrl); }
+
+    private final StringProperty description = new SimpleStringProperty();
+        public String getDescription() { return description.get(); }
+        public StringProperty descriptionProperty() { return description; }
+        public void setDescription(String name) { this.description.set(name); }
 
     public String getId() { return id; }
-    public String getDescription() {
-        return description;
-    }
     public int getDelai() {
         return delai;
     }

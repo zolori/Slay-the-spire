@@ -10,13 +10,13 @@ import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.Initializable;
-import model.Joueur;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import model.Joueur;
 
-public class VueBonus /*implements Initializable*/{
+public class BonusController /*implements Initializable*/{
     @FXML
     private BorderPane borderpane = new BorderPane();
     @FXML
