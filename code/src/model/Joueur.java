@@ -1,13 +1,9 @@
 package model;
 
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Joueur {
@@ -91,19 +87,6 @@ public class Joueur {
             }
         }
     }
-
-    // A finir -------------------------------------------------------|
-//    public void utiliserCarte(Carte c, Monstre cible){
-//        if(c.getPA() < this.getPA()){
-//            return;
-//        }
-//        for (Carte carte: deck) {
-//            if(carte.getId() == c.getId())
-//                deck.remove(carte);
-//                pioche.add(carte);//pioche
-//        }
-//        return;
-//    }
 
     public void remplaceDeckCarte(int i) {
         deck.set(i, randCarte());

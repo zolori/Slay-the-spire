@@ -8,7 +8,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Carte;
-
 import java.io.IOException;
 
 public class TaskCell extends ListCell<Carte> {
@@ -32,7 +31,7 @@ public class TaskCell extends ListCell<Carte> {
             loader.setController(this);
             loader.setRoot(this);
             loader.load();
-        } catch (IOException e) {
+        }catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

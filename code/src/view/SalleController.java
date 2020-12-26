@@ -13,12 +13,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.*;
-
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 
-public class SalleController /*implements Initializable*/ {
+public class SalleController {
     private GridPane terrain= new GridPane();
     private Label lbl;
     private Joueur joueur;
@@ -45,6 +43,20 @@ public class SalleController /*implements Initializable*/ {
         stage.setFullScreen(true);
     }
 
+    @FXML public void handleMouseClick(MouseEvent arg0) {
+        int selectedCarteIndex = deckListView.getSelectionModel().getSelectedIndex();
+        this.joueur.remplaceDeckCarte(selectedCarteIndex);
+    }
+
+    public void setJoueur(Joueur j) {
+        this.joueur = j;
+        initDeck();
+    }
+
+    public void initDeck() {
+        deckListView.setItems(this.joueur.getDeck());
+    }
+
     public void initialize(/*URL url, ResourceBundle resourceBundle*/) {
 //        Manager.salleActuelle.getlisteMonstre().addListener(new ListChangeListener<Monstre>()) {
 //            @Override
@@ -68,19 +80,5 @@ public class SalleController /*implements Initializable*/ {
 //                }
 //            }
 //        });
-    }
-
-    @FXML public void handleMouseClick(MouseEvent arg0) {
-        int selectedCarteIndex = deckListView.getSelectionModel().getSelectedIndex();
-        this.joueur.remplaceDeckCarte(selectedCarteIndex);
-    }
-
-    public void setJoueur(Joueur j) {
-        this.joueur = j;
-        initDeck();
-    }
-
-    public void initDeck() {
-        deckListView.setItems(this.joueur.getDeck());
     }
 }

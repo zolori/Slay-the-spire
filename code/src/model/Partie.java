@@ -8,7 +8,6 @@ public class Partie {
     private boolean isOver;
     private ArrayList<Salle> salles;
     private int nbSalle;
-    private Manager leManager;
 
     public Partie() {
         salles = new ArrayList<Salle>();
@@ -23,5 +22,4 @@ public class Partie {
 
     public ArrayList<Salle> getSalles() { return salles; }
     public void addSalle(Salle s) { salles.add(s); }
-    public Joueur getJoueur(Joueur joueur) { return joueur; }
 }

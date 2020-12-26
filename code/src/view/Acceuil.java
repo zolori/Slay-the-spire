@@ -9,10 +9,9 @@ import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import model.Joueur;
 import model.Manager;
-
 import java.io.IOException;
 
-public class Acceuil /*extends Application implements Initializable*/ {
+public class Acceuil {
     @FXML
     private Button lancer;
     @FXML
@@ -43,12 +42,4 @@ public class Acceuil /*extends Application implements Initializable*/ {
         supprimer.setText("Supression de la partie !");
     }
 
-//    @Override
-//    public void start(Stage stage) throws Exception {
-//    }
-
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        texte.setText(joueur.getNom());
-//    }
 }

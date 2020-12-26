@@ -3,9 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Salle {
-    private int num;
-    private Joueur joueur;
-    private static int numSalle;
+    private int numSalle;
     private static ArrayList<Monstre> listeMonstre;
     private static int nbMonstre = 0;
     private int nbTour;
@@ -32,7 +30,7 @@ public class Salle {
         listeMonstre.add(new Monstre(n, pdv, salle, degats));
     }
 
-    public static int getNumSalle() {
+    public int getNumSalle() {
         return numSalle;
     }
     public void getNbMonstre(){
