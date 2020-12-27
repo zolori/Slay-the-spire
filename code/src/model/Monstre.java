@@ -5,14 +5,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 
-public class Monstre implements Actions {
+public class Monstre implements Personnage {
     private int numSalle;
     private int degats;
     private String nom;
     private Manager leManager = Manager.getInstance();
 
     private IntegerProperty pointsDeVie= new SimpleIntegerProperty();
-        public int getPointsDeVie() { return pointsDeVie.get(); }
+
+    public int getPointsDeVie() { return pointsDeVie.get(); }
         public IntegerProperty pointsDeVieProperty() { return pointsDeVie; }
         public void setPointsDeVie(int pointsDeVie) { this.pointsDeVie.set(pointsDeVie); }
 
@@ -32,6 +33,7 @@ public class Monstre implements Actions {
         return numSalle;
     }
     public int getDegats() { return degats; }
+
     public  String getNom() {
         return nom;
     }
@@ -43,14 +45,12 @@ public class Monstre implements Actions {
         return false;
     }
 
-    public void attaque(int val){
-        Joueur j = leManager.getJoueur();
-        j.setPointsDeVie(j.getPointsDeVie() - degats);
+    @Override
+    public boolean attaque(Personnage p, int val) {
+        p.setPointsDeVie(p.getPointsDeVie() - degats);
+
+        return p.getPointsDeVie() > 0;
     }
 
     public String getImage() { return image; }
-
-    public void subit(int valeur) {
-        setPointsDeVie(getPointsDeVie()-valeur);
-    }
 }

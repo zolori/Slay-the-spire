@@ -28,6 +28,7 @@ import java.io.IOException;
 public class SalleController {
     Manager leManager = Manager.getInstance();
     Joueur joueur = leManager.getJoueur();
+
     @FXML
     private GridPane terrain;
     @FXML
@@ -64,21 +65,14 @@ public class SalleController {
         this.joueur.remplaceDeckCarte(selectedCarteIndex);
     }
 
-    public void setJoueur(Joueur j) {
-        joueur = j;
-        initDeck();
-    }
-
-    public void initDeck() {
-        deckListView.setItems(this.joueur.getDeck());
-    }
 
     public void useCard(Carte selectedItem) throws IOException {
-        Monstre m = leManager.getSalle().getMonstre();
         switch (selectedItem.getNom()) {
             case "Attaque":
-                joueur.attaque(selectedItem.getValeur());
-                if (leManager.getSalle().getMonstre().getPointsDeVie() <= 0)
+                boolean changeSalle = joueur.attaque(leManager.getSalle().getMonstre(), selectedItem.getValeur());
+                if (joueur.getPointsDeVie() <= 0)
+                    leManager.getPartie().finPartie();
+                else if (changeSalle)
                     leManager.getSalle().changerSalle();
                 break;
             case "Soin":
@@ -89,13 +83,9 @@ public class SalleController {
         }
     }
 
-    public Carte getSelectedItem() {
-        return selectedItem;
-    }
-
     public void initialize() {
         leManager.createSalle(1);
-        this.setJoueur(joueur);
+        deckListView.setItems(this.joueur.getDeck());
 
         hero.setImage(new Image(getClass().getResource(joueur.getImage()).toExternalForm()));
         hero.setFitHeight(100);

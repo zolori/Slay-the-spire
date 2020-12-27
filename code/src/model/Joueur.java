@@ -1,5 +1,7 @@
 package model;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -8,11 +10,12 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Random;
 
-public class Joueur implements Actions {
+public class Joueur implements Personnage {
     private int numSalle;
     private ObservableList<Carte> deck;
     private int ptsAction;
@@ -43,6 +46,7 @@ public class Joueur implements Actions {
     public StringProperty nomProperty() { return this.nom; }
 
     private IntegerProperty pdv = new SimpleIntegerProperty();
+
     public int getPointsDeVie(){return pdvProperty().get();}
     public void setPointsDeVie(int value){ pdvProperty().set(value);}
     public IntegerProperty pdvProperty(){return this.pdv;}
@@ -129,14 +133,24 @@ public class Joueur implements Actions {
             return new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1, "images/epee.png");
     }
 
-    public void attaque(int val) {
-        Monstre m = leManager.getSalle().getMonstre();
-        m.subit(val);
+    @Override
+    public boolean attaque(Personnage p, int val) {
+        Monstre m = (Monstre)p;
+        m.setPointsDeVie(getPointsDeVie()-val);
         if (m.getPointsDeVie() > 0) {
-            m.attaque(val);
-            if (leManager.getJoueur().getPointsDeVie() <= 0)
-                leManager.getPartie().finPartie();
+            Timeline delai = new Timeline(
+                    new KeyFrame(Duration.seconds(2), event -> attaquePlusTard(m, val))
+            );
+            delai.play();
+
         }
+
+        return m.getPointsDeVie() <= 0;
+    }
+
+    private void attaquePlusTard(Personnage m, int degats) {
+        m.attaque(this, degats);
+
     }
 
     public void soigne(int valeur) {
