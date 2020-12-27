@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import model.Joueur;
+import model.Manager;
 
 public class BonusController /*implements Initializable*/{
     @FXML
@@ -18,10 +19,8 @@ public class BonusController /*implements Initializable*/{
     @FXML
     private HBox hbox = new HBox();
 
-    private Joueur joueur;
-
-    /*@Override*/
     public void initialize() {
+
     }
 
     public void VieMax(ActionEvent actionEvent) throws IOException {
@@ -48,9 +47,9 @@ public class BonusController /*implements Initializable*/{
         Parent p = FXMLLoader.load(getClass().getResource("/Salle.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Salle");
-        stage.setScene(new Scene(p, 400, 600));
+        stage.setScene(new Scene(p, 1000, 700));
         stage.show();
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        stage.setFullScreen(true);
+        // stage.setFullScreen(true);
     }
 }

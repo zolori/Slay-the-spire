@@ -5,10 +5,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 
-public class Monstre {
+public class Monstre implements Actions {
     private int numSalle;
     private int degats;
     private String nom;
+    private Manager leManager = Manager.getInstance();
 
     private IntegerProperty pointsDeVie= new SimpleIntegerProperty();
         public int getPointsDeVie() { return pointsDeVie.get(); }
@@ -42,7 +43,8 @@ public class Monstre {
         return false;
     }
 
-    public void attaque(Joueur j){
+    public void attaque(int val){
+        Joueur j = leManager.getJoueur();
         j.setPointsDeVie(j.getPointsDeVie() - degats);
     }
 

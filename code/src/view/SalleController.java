@@ -26,8 +26,8 @@ import java.awt.image.ImageProducer;
 import java.io.IOException;
 
 public class SalleController {
-    private Manager leManager= new Manager();
-    private Joueur joueur;
+    Manager leManager = Manager.getInstance();
+    Joueur joueur = leManager.getJoueur();
     @FXML
     private GridPane terrain;
     @FXML
@@ -42,19 +42,10 @@ public class SalleController {
     private ImageView monstre;
     @FXML
     private Text vietot;
-    private Label lbl;
     @FXML
     private ListView<Carte> deckListView;
     private ObservableList<Carte> deck = FXCollections.observableArrayList();
-
-    public void bonus(ActionEvent actionEvent) throws IOException {
-        Parent p = FXMLLoader.load(getClass().getResource("/Bonus.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Bonus");
-        stage.setScene(new Scene(p, 600, 250));
-        stage.show();
-        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-    }
+    Carte selectedItem;
 
     public void defaite(ActionEvent actionEvent) throws IOException {
         Parent p = FXMLLoader.load(getClass().getResource("/Defaite.fxml"));
@@ -66,43 +57,56 @@ public class SalleController {
         stage.setFullScreen(true);
     }
 
-    @FXML public void handleMouseClick(MouseEvent arg0) {
+    @FXML public void handleMouseClick(MouseEvent arg0) throws IOException {
         int selectedCarteIndex = deckListView.getSelectionModel().getSelectedIndex();
-        leManager.useCard(deckListView.getSelectionModel().getSelectedItem());
+        selectedItem = deckListView.getSelectionModel().getSelectedItem();
+        useCard(selectedItem);
         this.joueur.remplaceDeckCarte(selectedCarteIndex);
     }
 
-    public void setJoueur(String nom, int pdv, int pa,int nbcartes) {
-        this.joueur = new Joueur(nom,pdv,pa,nbcartes);
+    public void setJoueur(Joueur j) {
+        joueur = j;
         initDeck();
-    }
-
-    public void setManager(Manager leManager) {
-        this.leManager=leManager;
     }
 
     public void initDeck() {
         deckListView.setItems(this.joueur.getDeck());
     }
 
+    public void useCard(Carte selectedItem) throws IOException {
+        Monstre m = leManager.getSalle().getMonstre();
+        switch (selectedItem.getNom()) {
+            case "Attaque":
+                joueur.attaque(selectedItem.getValeur());
+                if (leManager.getSalle().getMonstre().getPointsDeVie() <= 0)
+                    leManager.getSalle().changerSalle();
+                break;
+            case "Soin":
+                joueur.soigne(selectedItem.getValeur());
+                break;
+            default :
+                break;
+        }
+    }
+
+    public Carte getSelectedItem() {
+        return selectedItem;
+    }
+
     public void initialize() {
         leManager.createSalle(1);
-        Joueur joueur= leManager.getJoueur();
+        this.setJoueur(joueur);
+
         hero.setImage(new Image(getClass().getResource(joueur.getImage()).toExternalForm()));
         hero.setFitHeight(100);
         hero.setFitWidth(100);
         vie.textProperty().bindBidirectional(joueur.pdvProperty(),new NumberStringConverter());
         vietot.textProperty().bindBidirectional(joueur.pdvMaxProperty(),new NumberStringConverter());
 
-        Monstre monstres = leManager.getSalleActuelle().getMonstre();
+        Monstre monstres = leManager.getSalle().getMonstre();
         monstre.setImage(new Image(getClass().getResource(monstres.getImage()).toExternalForm()));
         monstre.setFitHeight(150);
         monstre.setFitWidth(150);
         vieMonstre.textProperty().bindBidirectional(monstres.pointsDeVieProperty(),new NumberStringConverter());
-    }
-
-
-    public Manager getManager() {
-        return leManager;
     }
 }

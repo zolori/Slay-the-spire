@@ -26,7 +26,6 @@
         </rowConstraints>
          <children>
                    <Text textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"> Bienvenue !</Text>
-                   <Button fx:id="bonus" alignment="CENTER" onAction="#bonus" prefHeight="26.0" prefWidth="92.0" text="Bonus" />
                    <Button fx:id="defaite" alignment="TOP_RIGHT" contentDisplay="RIGHT" onAction="#defaite" text="Abandonner" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
          </children>
       </GridPane>
