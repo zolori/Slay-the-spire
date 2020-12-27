@@ -23,6 +23,14 @@ public class Joueur implements Personnage {
     Random rand = new Random();
     private Manager leManager = Manager.getInstance();
 
+    // --- Section Carte --- //
+    private int soin = 20;
+    private int attaque = 10;
+    private int poison = 5;
+    public int poisonEnCours = 0;
+    private int valPoison;
+    private Monstre mEmpoisonne;
+
     public Joueur(String n, int pdv, int pa, int nbDeckCartes) {
         setNom(n);
         setPdvMax(pdv);
@@ -51,13 +59,11 @@ public class Joueur implements Personnage {
     public void setPointsDeVie(int value){ pdvProperty().set(value);}
     public IntegerProperty pdvProperty(){return this.pdv;}
 
-
     public int getSalle() { return numSalle; }
     public void setSalle(int n) { numSalle = n; }
 
     public int getPA() { return ptsAction; }
     public ObservableList<Carte> getDeck() { return deck; }
-
 
     public String getImage(){return image;}
 
@@ -65,19 +71,27 @@ public class Joueur implements Personnage {
         setPointsDeVie(getPdvMax());
     }
 
-    public void renforcer (Bonus b, Salle s) {
-        //On récupère la pioche
-        Boolean isBoss = false;
+    public int getSoin() {
+        return soin;
+    }
 
-        //On regarde si il y avait un boss dans la salle
+    public int getAttaque() {
+        return attaque;
+    }
+
+    public int getPoison() {
+        return poison;
+    }
+
+    public void renforcer (Bonus b, Salle s) {
+
         if (this.numSalle == s.getNumSalle() && s.contientBoss()) //Si on tue un boss, bonus améliorés
         {
-            isBoss = true; //Si il y a un boss, on passe la variable a true
             switch (b) {
                 case Degats:
-//                    for ( Carte c : pioche ) {
-//                        deck = c.renforcement(deck.toArray(), isBoss); //On utilise le renforcement de manière amélioré
-//                    }
+                    soin += soin / 2;
+                    attaque += attaque / 2;
+                    poison += poison / 2;
                     break;
                 case VieMax:
                     setPdvMax(getPdvMax()+10); //On augmente le maximum de pdv
@@ -93,11 +107,10 @@ public class Joueur implements Personnage {
         }
         else {
             switch (b) {
-                //Bonus simples
                 case Degats:
-//                    for ( Carte c : pioche ) {
-//                        deck = c.renforcement(deck, isBoss); //On utilise le renforcement de manière amélioré
-//                    }
+                    soin += soin / 2;
+                    attaque += attaque / 2;
+                    poison += poison / 2;
                     break;
                 case VieMax:
                     setPdvMax(getPdvMax() + 5); //On augmente le maximum de pdv
@@ -122,29 +135,29 @@ public class Joueur implements Personnage {
         }
     }
 
-    private Carte randCarte() {
+    public Carte randCarte() {
         int n = rand.nextInt(4);
 
         if (n == 0)
-            return new Carte("Soin", "Description carte", 1, 20, Effets.physique, 1, "images/coeur.png");
-//        else if (n == 1)
-//            return new Carte("Protection", "Description carte", 1, 30, Effets.physique, 1, "images/bouclier.png");
+            return new Carte("Soin", "Soigne vos points de vie", 1, soin, Effets.magique, 1, "images/coeur.png");
+        else if (n == 1)
+            return new Carte("Poison", "Empoisonne l'ennemi", 3, poison, Effets.duree, 1, "images/poison.png");
         else
-            return new Carte("Attaque", "Description carte", 1, 10, Effets.magique, 1, "images/epee.png");
+            return new Carte("Attaque", "Attaque directe", 1, attaque, Effets.physique, 1, "images/epee.png");
     }
 
     @Override
     public boolean attaque(Personnage p, int val) {
-        Monstre m = (Monstre)p;
-        m.setPointsDeVie(getPointsDeVie()-val);
+        Monstre m = (Monstre) p;
+        if (poisonEnCours != 0)
+            empoisonne(mEmpoisonne, valPoison);
+        m.setPointsDeVie(m.getPointsDeVie() - val);
         if (m.getPointsDeVie() > 0) {
             Timeline delai = new Timeline(
                     new KeyFrame(Duration.seconds(2), event -> attaquePlusTard(m, val))
             );
             delai.play();
-
         }
-
         return m.getPointsDeVie() <= 0;
     }
 
@@ -153,10 +166,31 @@ public class Joueur implements Personnage {
 
     }
 
-    public void soigne(int valeur) {
-        if (getPointsDeVie()+valeur<getPdvMax())
-            setPointsDeVie(getPointsDeVie()+valeur);
+    public boolean soigne(int valeur) {
+        if (poisonEnCours != 0)
+            empoisonne(mEmpoisonne, valPoison);
+        if (getPointsDeVie() + valeur <= getPdvMax())
+            setPointsDeVie(getPointsDeVie() + valeur);
         else
             setPointsDeVie(getPdvMax());
+        return mEmpoisonne.getPointsDeVie() <= 0;
+    }
+
+    public boolean empoisonnement(Monstre m, Carte c) {
+        mEmpoisonne = m;
+        valPoison = c.getValeur();
+
+        if (poisonEnCours != 0)
+            empoisonne(mEmpoisonne, valPoison);
+
+        poisonEnCours += c.getDelai();
+        empoisonne(m, valPoison);
+
+        return mEmpoisonne.getPointsDeVie() <= 0;
+    }
+
+    public void empoisonne(Monstre m, int val) {
+        m.setPointsDeVie(m.getPointsDeVie() - val);
+        poisonEnCours -= 1;
     }
 }

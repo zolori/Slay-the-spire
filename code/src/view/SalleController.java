@@ -1,11 +1,12 @@
 package view;
 
+import com.sun.media.jfxmediaimpl.platform.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,10 +20,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import model.*;
-
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.IOException;
 
 public class SalleController {
@@ -67,19 +64,25 @@ public class SalleController {
 
 
     public void useCard(Carte selectedItem) throws IOException {
+        boolean changeSalle = false;
+
         switch (selectedItem.getNom()) {
             case "Attaque":
-                boolean changeSalle = joueur.attaque(leManager.getSalle().getMonstre(), selectedItem.getValeur());
-                if (joueur.getPointsDeVie() <= 0)
-                    leManager.getPartie().finPartie();
-                else if (changeSalle)
-                    leManager.getSalle().changerSalle();
+                changeSalle = joueur.attaque(leManager.getSalle().getMonstre(), selectedItem.getValeur());
                 break;
             case "Soin":
-                joueur.soigne(selectedItem.getValeur());
+                changeSalle = joueur.soigne(selectedItem.getValeur());
+                break;
+            case "Poison":
+                changeSalle = joueur.empoisonnement(leManager.getSalle().getMonstre(), selectedItem);
                 break;
             default :
                 break;
+        }
+        if (joueur.getPointsDeVie() <= 0)
+            leManager.getPartie().finPartie();
+        else if (changeSalle){
+            leManager.getSalle().changerSalle();
         }
     }
 

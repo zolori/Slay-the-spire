@@ -6,26 +6,26 @@ import java.util.Random;
 public class Partie {
     private int nbTour;
     private ArrayList<Salle> salles;
-    private int nbSalle;
+    private final int NBSALLE = 21;
     private Joueur joueur;
     private int pdv = 100;
     private int degats = 100;
+    int i = 1;
 
     public Partie(Joueur j) {
         joueur = j;
-        salles = new ArrayList<Salle>(20);
+        salles = new ArrayList<Salle>(NBSALLE-1);
         for (Salle s : salles) {
+            s = new Salle(i);
             pdv = (int)(pdv * 1.2);
             degats = (int)(degats * 1.2);
             s.nvMonstre("Monstre", pdv, s.getNumSalle(), degats);
+            i++;
         }
     }
 
     public int getNbSalle() {
-        for (Salle s : salles) {
-            nbSalle++;
-        }
-        return nbSalle;
+        return NBSALLE;
     }
 
     public Joueur getJoueur() {
