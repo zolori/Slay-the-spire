@@ -9,7 +9,6 @@ public class Monstre implements Personnage {
     private int numSalle;
     private int degats;
     private String nom;
-    private Manager leManager = Manager.getInstance();
 
     private IntegerProperty pointsDeVie= new SimpleIntegerProperty();
 
@@ -26,17 +25,17 @@ public class Monstre implements Personnage {
         setPointsDeVie(pdv);
         numSalle = num;
         degats = d;
-        image="/images/Orcs.jpg";
+        image = "/images/Orcs.jpg";
     }
 
     public int getSalle() {
         return numSalle;
     }
     public int getDegats() { return degats; }
-
     public  String getNom() {
         return nom;
     }
+    public String getImage() { return image; }
 
     protected boolean isBoss() {
         if (this.getClass().getName() == "Boss"){
@@ -51,6 +50,4 @@ public class Monstre implements Personnage {
 
         return p.getPointsDeVie() > 0;
     }
-
-    public String getImage() { return image; }
 }

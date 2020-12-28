@@ -1,10 +1,6 @@
 package view;
 
-import com.sun.media.jfxmediaimpl.platform.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -24,25 +20,25 @@ import java.io.IOException;
 
 public class SalleController {
     Manager leManager = Manager.getInstance();
-    Joueur joueur = leManager.getJoueur();
+    Joueur joueur = leManager.getPartie().getJoueur();
+    Salle salleActuelle = leManager.getPartie().getSalle(joueur.getNumSalle());
 
     @FXML
     private GridPane terrain;
     @FXML
     private VBox ptsdevie;
     @FXML
-    private ImageView hero;
+    private ImageView heroImageView;
     @FXML
     private Text vie;
     @FXML
     private Text vieMonstre;
     @FXML
-    private ImageView monstre;
+    private ImageView monstreImageView;
     @FXML
     private Text vietot;
     @FXML
     private ListView<Carte> deckListView;
-    private ObservableList<Carte> deck = FXCollections.observableArrayList();
     Carte selectedItem;
 
     public void defaite(ActionEvent actionEvent) throws IOException {
@@ -68,13 +64,13 @@ public class SalleController {
 
         switch (selectedItem.getNom()) {
             case "Attaque":
-                changeSalle = joueur.attaque(leManager.getSalle().getMonstre(), selectedItem.getValeur());
+                changeSalle = joueur.attaque(salleActuelle.getMonstre(), selectedItem.getValeur());
                 break;
             case "Soin":
-                changeSalle = joueur.soigne(selectedItem.getValeur());
+                changeSalle = joueur.soigne(selectedItem.getValeur(), salleActuelle.getMonstre());
                 break;
             case "Poison":
-                changeSalle = joueur.empoisonnement(leManager.getSalle().getMonstre(), selectedItem);
+                changeSalle = joueur.empoisonnement(salleActuelle.getMonstre(), selectedItem);
                 break;
             default :
                 break;
@@ -82,24 +78,20 @@ public class SalleController {
         if (joueur.getPointsDeVie() <= 0)
             leManager.getPartie().finPartie();
         else if (changeSalle){
-            leManager.getSalle().changerSalle();
+            joueur.setNumSalle(salleActuelle.getNumSalle() + 1);
+            salleActuelle.changerSalle();
         }
     }
 
     public void initialize() {
-        leManager.createSalle(1);
         deckListView.setItems(this.joueur.getDeck());
 
-        hero.setImage(new Image(getClass().getResource(joueur.getImage()).toExternalForm()));
-        hero.setFitHeight(100);
-        hero.setFitWidth(100);
-        vie.textProperty().bindBidirectional(joueur.pdvProperty(),new NumberStringConverter());
-        vietot.textProperty().bindBidirectional(joueur.pdvMaxProperty(),new NumberStringConverter());
+        heroImageView.setImage(new Image(getClass().getResource(joueur.getImage()).toExternalForm()));
+        vie.textProperty().bindBidirectional(joueur.pdvProperty(), new NumberStringConverter());
+        vietot.textProperty().bindBidirectional(joueur.pdvMaxProperty(), new NumberStringConverter());
 
-        Monstre monstres = leManager.getSalle().getMonstre();
-        monstre.setImage(new Image(getClass().getResource(monstres.getImage()).toExternalForm()));
-        monstre.setFitHeight(150);
-        monstre.setFitWidth(150);
-        vieMonstre.textProperty().bindBidirectional(monstres.pointsDeVieProperty(),new NumberStringConverter());
+        Monstre monstre = salleActuelle.getMonstre();
+        monstreImageView.setImage(new Image(getClass().getResource(monstre.getImage()).toExternalForm()));
+        vieMonstre.textProperty().bindBidirectional(monstre.pointsDeVieProperty(), new NumberStringConverter());
     }
 }

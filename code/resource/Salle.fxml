@@ -9,9 +9,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.geometry.Insets?>
 <?import view.TaskCellFactory?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SalleController">
    <top>
       <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
@@ -42,9 +42,7 @@
         </rowConstraints>
 
           <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" fx:id="ptsdevie" >
-              <ImageView fx:id="hero" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-
-              </ImageView>
+              <ImageView fx:id="heroImageView" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitHeight="100" fitWidth="100"/>
               <HBox alignment="CENTER">
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Points de vies" fx:id="vie" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/"/>
@@ -54,9 +52,7 @@
 
 
           <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER">
-              <ImageView fx:id="monstre" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-
-              </ImageView>
+              <ImageView fx:id="monstreImageView" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitHeight="150" fitWidth="150"/>
               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pts de vie" fx:id="vieMonstre"/>
           </VBox>
       </GridPane>

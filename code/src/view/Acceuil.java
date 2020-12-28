@@ -25,7 +25,6 @@ public class Acceuil {
     public void lancer(ActionEvent actionEvent) throws IOException {
         Manager leManager = Manager.getInstance();
         Joueur joueur = leManager.createJoueur("Jean", 300, 1);
-        Partie partie = new Partie(joueur);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Salle.fxml"));
         Parent p = loader.load();

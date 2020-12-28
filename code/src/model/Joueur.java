@@ -35,8 +35,7 @@ public class Joueur implements Personnage {
         setNom(n);
         setPdvMax(pdv);
         setPointsDeVie(getPdvMax());
-        soin();
-        numSalle = 0;
+        numSalle = 1;
         ptsAction = pa;
         deck = FXCollections.observableArrayList();
         initDeck(nbDeckCartes);
@@ -54,33 +53,23 @@ public class Joueur implements Personnage {
     public StringProperty nomProperty() { return this.nom; }
 
     private IntegerProperty pdv = new SimpleIntegerProperty();
-
     public int getPointsDeVie(){return pdvProperty().get();}
     public void setPointsDeVie(int value){ pdvProperty().set(value);}
     public IntegerProperty pdvProperty(){return this.pdv;}
 
-    public int getSalle() { return numSalle; }
-    public void setSalle(int n) { numSalle = n; }
-
     public int getPA() { return ptsAction; }
     public ObservableList<Carte> getDeck() { return deck; }
+    public int getNumSalle() {
+        return numSalle;
+    }
+    public void setNumSalle(int numSalle) {
+        this.numSalle = numSalle;
+    }
 
     public String getImage(){return image;}
 
     private void soin() {
         setPointsDeVie(getPdvMax());
-    }
-
-    public int getSoin() {
-        return soin;
-    }
-
-    public int getAttaque() {
-        return attaque;
-    }
-
-    public int getPoison() {
-        return poison;
     }
 
     public void renforcer (Bonus b, Salle s) {
@@ -89,18 +78,18 @@ public class Joueur implements Personnage {
         {
             switch (b) {
                 case Degats:
-                    soin += soin / 2;
+                    soin += (int)(soin / 1.5);
                     attaque += attaque / 2;
                     poison += poison / 2;
                     break;
                 case VieMax:
-                    setPdvMax(getPdvMax()+10); //On augmente le maximum de pdv
+                    setPdvMax(getPdvMax() + 10); //On augmente le maximum de pdv
                     break;
                 case PointAction:
-                    ptsAction=ptsAction+2; //On augmente les ptsAction de 2
+                    ptsAction = ptsAction + 2; //On augmente les ptsAction de 2
                     break;
                 case Regeneration:
-                    setPointsDeVie(getPointsDeVie()+5); //On augmente le maximum de pdv
+                    setPointsDeVie(getPointsDeVie() + 5); //On augmente le maximum de pdv
                     soin(); // On remet le joueur au maximum de ses pts de vie
                     break;
             }
@@ -149,9 +138,11 @@ public class Joueur implements Personnage {
     @Override
     public boolean attaque(Personnage p, int val) {
         Monstre m = (Monstre) p;
-        if (poisonEnCours != 0)
+        if (poisonEnCours != 0) {
             empoisonne(mEmpoisonne, valPoison);
+        }
         m.setPointsDeVie(m.getPointsDeVie() - val);
+        System.out.println(val + " Attaque");
         if (m.getPointsDeVie() > 0) {
             Timeline delai = new Timeline(
                     new KeyFrame(Duration.seconds(2), event -> attaquePlusTard(m, val))
@@ -163,17 +154,24 @@ public class Joueur implements Personnage {
 
     private void attaquePlusTard(Personnage m, int degats) {
         m.attaque(this, degats);
-
     }
 
-    public boolean soigne(int valeur) {
-        if (poisonEnCours != 0)
-            empoisonne(mEmpoisonne, valPoison);
-        if (getPointsDeVie() + valeur <= getPdvMax())
+    public boolean soigne(int valeur, Monstre m) {
+        if (poisonEnCours != 0) {
+            empoisonne(m, valPoison);
+            System.out.println(valPoison + " Soigne");
+            if (getPointsDeVie() + valeur <= getPdvMax())
+                setPointsDeVie(getPointsDeVie() + valeur);
+            else
+                setPointsDeVie(getPdvMax());
+            return m.getPointsDeVie() <= 0;
+        }
+        else if (getPointsDeVie() + valeur <= getPdvMax())
             setPointsDeVie(getPointsDeVie() + valeur);
         else
             setPointsDeVie(getPdvMax());
-        return mEmpoisonne.getPointsDeVie() <= 0;
+
+        return false;
     }
 
     public boolean empoisonnement(Monstre m, Carte c) {
@@ -191,6 +189,7 @@ public class Joueur implements Personnage {
 
     public void empoisonne(Monstre m, int val) {
         m.setPointsDeVie(m.getPointsDeVie() - val);
+        System.out.println(val + " Empoisonne");
         poisonEnCours -= 1;
     }
 }

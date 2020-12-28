@@ -11,35 +11,34 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
-import model.Bonus;
-import model.Joueur;
-import model.Manager;
+import model.*;
 
 public class BonusController /*implements Initializable*/{
     Manager leManager = Manager.getInstance();
-    Joueur j = leManager.getJoueur();
+    Joueur j = leManager.getPartie().getJoueur();
+    Salle salleActuelle = leManager.getPartie().getSalle(j.getNumSalle());
 
     public void initialize() {
 
     }
 
     public void VieMax(ActionEvent actionEvent) throws IOException {
-        j.renforcer(Bonus.VieMax, leManager.getSalle());
+        j.renforcer(Bonus.VieMax, salleActuelle);
         retourAccueil(actionEvent);
     }
 
     public void Regen(ActionEvent actionEvent) throws IOException{
-        j.renforcer(Bonus.Regeneration, leManager.getSalle());
+        j.renforcer(Bonus.Regeneration, salleActuelle);
         retourAccueil(actionEvent);
     }
 
     public void PA(ActionEvent actionEvent) throws IOException{
-        j.renforcer(Bonus.PointAction, leManager.getSalle());
+        j.renforcer(Bonus.PointAction, salleActuelle);
         retourAccueil(actionEvent);
     }
 
     public void Degats(ActionEvent actionEvent) throws IOException{
-        j.renforcer(Bonus.Degats, leManager.getSalle());
+        j.renforcer(Bonus.Degats, salleActuelle);
         reinitDeck(3);
         retourAccueil(actionEvent);
     }
@@ -49,7 +48,6 @@ public class BonusController /*implements Initializable*/{
         for (int i = 0; i < nb_cartes; i++) {
             j.remplaceDeckCarte(i);
         }
-
     }
 
     public void retourAccueil(ActionEvent actionEvent) throws IOException {
