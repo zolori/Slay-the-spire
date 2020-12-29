@@ -27,6 +27,8 @@
          <children>
                    <Text textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"> Bienvenue !</Text>
                    <Button fx:id="defaite" alignment="TOP_RIGHT" contentDisplay="RIGHT" onAction="#defaite" text="Abandonner" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+                    <Button fx:id="Sauvegarde" alignment="TOP_LEFT" contentDisplay="RIGHT" onAction="#sauvegarde" text="Sauvegarder" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="LEFT" />
+
          </children>
       </GridPane>
    </top>

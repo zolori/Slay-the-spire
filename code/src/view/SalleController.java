@@ -16,7 +16,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import model.*;
-import java.io.IOException;
+
+import java.io.*;
 
 public class SalleController {
     Manager leManager = Manager.getInstance();
@@ -41,6 +42,27 @@ public class SalleController {
     private ListView<Carte> deckListView;
     Carte selectedItem;
 
+    public void loadPartie (Joueur j, Salle s){
+        joueur=j;
+        salleActuelle=s;
+        leManager.getPartie().setJoueur(j);
+        leManager.getPartie().setSalle(s);
+        bind();
+
+    }
+
+    private void bind(){
+        deckListView.setItems(this.joueur.getDeck());
+
+        heroImageView.setImage(new Image(getClass().getResource(joueur.getImage()).toExternalForm()));
+        vie.textProperty().bindBidirectional(joueur.pdvProperty(), new NumberStringConverter());
+        vietot.textProperty().bindBidirectional(joueur.pdvMaxProperty(), new NumberStringConverter());
+
+        Monstre monstre = salleActuelle.getMonstre();
+        monstreImageView.setImage(new Image(getClass().getResource(monstre.getImage()).toExternalForm()));
+        vieMonstre.textProperty().bindBidirectional(monstre.pointsDeVieProperty(), new NumberStringConverter());
+
+    }
     public void defaite(ActionEvent actionEvent) throws IOException {
         Parent p = FXMLLoader.load(getClass().getResource("/Defaite.fxml"));
         Stage stage = new Stage();
@@ -48,7 +70,6 @@ public class SalleController {
         stage.setScene(new Scene(p, 400, 600));
         stage.show();
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        stage.setFullScreen(true);
     }
 
     @FXML public void handleMouseClick(MouseEvent arg0) throws IOException {
@@ -84,14 +105,25 @@ public class SalleController {
     }
 
     public void initialize() {
-        deckListView.setItems(this.joueur.getDeck());
+        bind();
+    }
 
-        heroImageView.setImage(new Image(getClass().getResource(joueur.getImage()).toExternalForm()));
-        vie.textProperty().bindBidirectional(joueur.pdvProperty(), new NumberStringConverter());
-        vietot.textProperty().bindBidirectional(joueur.pdvMaxProperty(), new NumberStringConverter());
+    public void sauvegarde(ActionEvent actionEvent) throws IOException {
+        FileOutputStream sauvegarde = new FileOutputStream("Partie.ser");
+        ObjectOutputStream oos = new ObjectOutputStream(sauvegarde);
+        Manager manager=Manager.getInstance();
+        Partie partie=manager.getPartie();
+        partie.getJoueur().serialisation(oos);
+        partie.getSalle(partie.getJoueur().getNumSalle()).serialisation(oos);
+        partie.getSalle(partie.getJoueur().getNumSalle()).getMonstre().serialisation(oos);
 
-        Monstre monstre = salleActuelle.getMonstre();
-        monstreImageView.setImage(new Image(getClass().getResource(monstre.getImage()).toExternalForm()));
-        vieMonstre.textProperty().bindBidirectional(monstre.pointsDeVieProperty(), new NumberStringConverter());
+        oos.close();
+
+        Parent p = FXMLLoader.load(getClass().getResource("/Accueil.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Accueil");
+        stage.setScene(new Scene(p, 400, 600));
+        stage.show();
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
     }
 }

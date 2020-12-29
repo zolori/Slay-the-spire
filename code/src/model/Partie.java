@@ -1,9 +1,11 @@
 package model;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class Partie {
+public class Partie implements Serializable {
     private int nbTour;
     private ArrayList<Salle> salles;
     private final int NBSALLE = 21;
@@ -19,13 +21,31 @@ public class Partie {
 
         for (int i = 1; i < NBSALLE; i++) {
             Salle s = new Salle(i);
-            pdv = (int)(pdv * 1.5);
-            degats = (int)(degats * 1.5);
-            Monstre m = new Monstre("Monstre", pdv, i, degats);
-            s.setMonstre(m);
+            if(i%5!=0) {
+                pdv = (int) (pdv * 1.5);
+                degats = (int) (degats * 1.5);
+                Monstre m = new Monstre("Monstre", pdv, i, degats);
+                s.setMonstre(m);
+
+            }else{
+                pdv = (int) (pdv * 2);
+                degats = (int) (degats * 2);
+                Boss b = new Boss("Boss", pdv, i, degats);
+                s.setMonstre(b);
+            }
             salles.add(s);
         }
     }
+
+    public Partie(Joueur j, ArrayList<Carte> deck, Salle s, Monstre m) {
+        joueur=j;
+        j.setDeck(deck);
+        s.setMonstre(m);
+        salles.add(s);
+    }
+
+
+
 
     public Salle getSalle(int num) {
         return salles.get(num-1);
@@ -45,4 +65,6 @@ public class Partie {
     public void finPartie() {
         // mettre fin à la partie
     }
+
+    public void setSalle(Salle s) { salles.add(s); }
 }

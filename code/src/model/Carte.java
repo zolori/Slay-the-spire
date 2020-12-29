@@ -3,10 +3,14 @@ package model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Carte {
+public class Carte implements Serializable,SerialisationPartie {
     private String id;
     private int delai;
     private int valeur;
@@ -56,4 +60,26 @@ public class Carte {
         return deck;
     }
 
+
+    public void serialisation(ObjectOutputStream oos) {
+        try {
+            oos.writeObject(getNom());
+            oos.writeObject(getImageUrl());
+            oos.writeObject(getDescription());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deserialisation(ObjectInputStream ois) {
+        try {
+            setNom((String) ois.readObject());
+            setImageUrl((String) ois.readObject());
+            setDescription((String) ois.readObject());
+        } catch (final java.io.IOException e) {
+            e.printStackTrace();
+        } catch (final ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

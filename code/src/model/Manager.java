@@ -2,6 +2,7 @@ package model;
 
 import java.io.IOException;
 import java.lang.Thread;
+import java.util.ArrayList;
 
 public class Manager {
     private Partie partie;
@@ -24,4 +25,5 @@ public class Manager {
     public Partie getPartie() {
         return partie;
     }
+
 }

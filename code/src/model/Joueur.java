@@ -12,12 +12,16 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-public class Joueur implements Personnage {
-    private int numSalle;
+public class Joueur implements Personnage,Serializable,SerialisationPartie {
+    private int numSalle=0;
     private ObservableList<Carte> deck;
+
     private int ptsAction;
     private String image;
     Random rand = new Random();
@@ -59,6 +63,13 @@ public class Joueur implements Personnage {
 
     public int getPA() { return ptsAction; }
     public ObservableList<Carte> getDeck() { return deck; }
+    public void setDeck(ObservableList<Carte> deck) { this.deck = deck; }
+    public void setDeck(ArrayList<Carte> deck){
+        for(int i=0; i<3; i++){
+            this.deck.set(i, deck.get(i));
+        }
+    }
+
     public int getNumSalle() {
         return numSalle;
     }
@@ -191,5 +202,55 @@ public class Joueur implements Personnage {
         m.setPointsDeVie(m.getPointsDeVie() - val);
         System.out.println(val + " Empoisonne");
         poisonEnCours -= 1;
+    }
+
+    @Override
+    public String toString(){
+        return getNom() + getPointsDeVie() + getPA() + getDeck();
+    }
+
+    public void serialisation(ObjectOutputStream oos) {
+        Manager m = Manager.getInstance();
+        Partie p = m.getPartie();
+        Joueur j=p.getJoueur();
+        String nom =j.getNom();
+        int pdv=j.getPointsDeVie();
+        int pa=j.getPA();
+        List<Carte> deck=j.getDeck().stream().collect(Collectors.toList());
+
+        try {
+            oos.writeObject(nom);
+            oos.writeObject(pdv);
+            oos.writeObject(getPdvMax());
+            oos.writeObject(pa);
+            ArrayList<Carte> deckS= new ArrayList<>(deck);
+            for (int i=0; i<deckS.size();i++) {
+                Carte c = deckS.get(i);
+                c.serialisation(oos);
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deserialisation(ObjectInputStream ois) {
+        Joueur j=null;
+        try {
+            this.setNom((String) ois.readObject());
+            this.setPointsDeVie((int) ois.readObject());
+            this.setPdvMax((int) ois.readObject());
+            this.ptsAction=(int) ois.readObject();
+            ArrayList<Carte> deckS= new ArrayList<>();
+            for (int i=0; i<3;i++) {
+                Carte c=new Carte("Carte","Description",0,0,Effets.physique,0,"image");
+                c.deserialisation(ois);
+                deckS.add(c);
+            }
+            this.setDeck(deckS);
+        } catch (final java.io.IOException e) {
+            e.printStackTrace();
+        } catch (final ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -6,9 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
-public class Salle {
+public class Salle implements Serializable,SerialisationPartie {
     private int numSalle;
     private Monstre monstre;
 
@@ -41,5 +42,25 @@ public class Salle {
         stage.setTitle("Bonus");
         stage.setScene(new Scene(p, 600, 250));
         stage.show();
+    }
+
+
+
+    public void serialisation(ObjectOutputStream oos) {
+        try {
+            oos.writeObject(numSalle);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deserialisation(ObjectInputStream ois) {
+        try {
+            numSalle= (int) ois.readObject();
+        } catch (final java.io.IOException e) {
+            e.printStackTrace();
+        } catch (final ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
