@@ -79,7 +79,6 @@ public class SalleController {
         this.joueur.remplaceDeckCarte(selectedCarteIndex);
     }
 
-
     public void useCard(Carte selectedItem) throws IOException {
         boolean changeSalle = false;
 
@@ -101,6 +100,7 @@ public class SalleController {
         else if (changeSalle){
             joueur.setNumSalle(salleActuelle.getNumSalle() + 1);
             salleActuelle.changerSalle();
+            deckListView.getScene().getWindow().hide();
         }
     }
 
