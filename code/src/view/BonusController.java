@@ -32,10 +32,6 @@ public class BonusController /*implements Initializable*/{
         retourAccueil(actionEvent);
     }
 
-    public void PA(ActionEvent actionEvent) throws IOException{
-        j.renforcer(Bonus.PointAction, salleActuelle);
-        retourAccueil(actionEvent);
-    }
 
     public void Degats(ActionEvent actionEvent) throws IOException{
         j.renforcer(Bonus.Degats, salleActuelle);

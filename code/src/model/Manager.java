@@ -15,8 +15,8 @@ public class Manager {
         return INSTANCE;
     }
 
-    public Joueur createJoueur(String nom, int pdv, int pa) {
-        Joueur joueur = new Joueur(nom, pdv,pa, 3);
+    public Joueur createJoueur(String nom, int pdv) {
+        Joueur joueur = new Joueur(nom, pdv, 3);
         partie = new Partie(joueur);
 
         return joueur;

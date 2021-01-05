@@ -21,11 +21,10 @@ import java.util.stream.Collectors;
 public class Joueur implements Personnage,Serializable,SerialisationPartie {
     private int numSalle=0;
     private ObservableList<Carte> deck;
+    private Manager lemanager=Manager.getInstance();
 
-    private int ptsAction;
     private String image;
     Random rand = new Random();
-    private Manager leManager = Manager.getInstance();
 
     // --- Section Carte --- //
     private int soin = 20;
@@ -35,12 +34,11 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
     private int valPoison;
     private Monstre mEmpoisonne;
 
-    public Joueur(String n, int pdv, int pa, int nbDeckCartes) {
+    public Joueur(String n, int pdv, int nbDeckCartes) {
         setNom(n);
         setPdvMax(pdv);
         setPointsDeVie(getPdvMax());
         numSalle = 1;
-        ptsAction = pa;
         deck = FXCollections.observableArrayList();
         initDeck(nbDeckCartes);
         image="/images/hero.png";
@@ -61,7 +59,6 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
     public void setPointsDeVie(int value){ pdvProperty().set(value);}
     public IntegerProperty pdvProperty(){return this.pdv;}
 
-    public int getPA() { return ptsAction; }
     public ObservableList<Carte> getDeck() { return deck; }
     public void setDeck(ObservableList<Carte> deck) { this.deck = deck; }
     public void setDeck(ArrayList<Carte> deck){
@@ -94,13 +91,10 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
                     poison += poison / 2;
                     break;
                 case VieMax:
-                    setPdvMax(getPdvMax() + 10); //On augmente le maximum de pdv
-                    break;
-                case PointAction:
-                    ptsAction = ptsAction + 2; //On augmente les ptsAction de 2
+                    setPdvMax((int) (getPdvMax()*1.2)); //On augmente le maximum de pdv
                     break;
                 case Regeneration:
-                    setPointsDeVie(getPointsDeVie() + 5); //On augmente le maximum de pdv
+                    setPdvMax((int) (getPdvMax()*1.1)); //On augmente le maximum de pdv
                     soin(); // On remet le joueur au maximum de ses pts de vie
                     break;
             }
@@ -113,10 +107,7 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
                     poison += poison / 2;
                     break;
                 case VieMax:
-                    setPdvMax(getPdvMax() + 5); //On augmente le maximum de pdv
-                    break;
-                case PointAction:
-                    ptsAction++; //On augmente les ptsAction de 1
+                    setPdvMax(getPdvMax() + 15*getNumSalle()); //On augmente le maximum de pdv
                     break;
                 case Regeneration:
                     soin(); // On remet le joueur au maximum de ses pts de vie
@@ -155,19 +146,31 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
         m.setPointsDeVie(m.getPointsDeVie() - val);
         System.out.println(val + " Attaque");
         if (m.getPointsDeVie() > 0) {
+            m.setEnattaque(true);
             Timeline delai = new Timeline(
-                    new KeyFrame(Duration.seconds(2), event -> attaquePlusTard(m, val))
+                    new KeyFrame(Duration.seconds(2), event -> {
+                        try {
+                            attaquePlusTard(m, val);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
             );
             delai.play();
         }
         return m.getPointsDeVie() <= 0;
     }
 
-    private void attaquePlusTard(Personnage m, int degats) {
-        m.attaque(this, degats);
+    private void attaquePlusTard(Personnage m, int degats) throws IOException {
+        Monstre monstre= (Monstre) m;
+        boolean Alive=monstre.attaque(this, degats);
+        monstre.setEnattaque(false);
+        if (!Alive){
+            lemanager.getPartie().finPartie();
+        }
     }
 
-    public boolean soigne(int valeur, Monstre m) {
+    public boolean soigne(int valeur, Monstre m) throws IOException {
         if (poisonEnCours != 0) {
             empoisonne(m, valPoison);
             System.out.println(valPoison + " Soigne");
@@ -175,6 +178,7 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
                 setPointsDeVie(getPointsDeVie() + valeur);
             else
                 setPointsDeVie(getPdvMax());
+            attaquePlusTard(m,m.getDegats());
             return m.getPointsDeVie() <= 0;
         }
         else if (getPointsDeVie() + valeur <= getPdvMax())
@@ -206,7 +210,7 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
 
     @Override
     public String toString(){
-        return getNom() + getPointsDeVie() + getPA() + getDeck();
+        return getNom() + getPointsDeVie() + getDeck();
     }
 
     public void serialisation(ObjectOutputStream oos) {
@@ -215,14 +219,12 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
         Joueur j=p.getJoueur();
         String nom =j.getNom();
         int pdv=j.getPointsDeVie();
-        int pa=j.getPA();
         List<Carte> deck=j.getDeck().stream().collect(Collectors.toList());
 
         try {
             oos.writeObject(nom);
             oos.writeObject(pdv);
             oos.writeObject(getPdvMax());
-            oos.writeObject(pa);
             ArrayList<Carte> deckS= new ArrayList<>(deck);
             for (int i=0; i<deckS.size();i++) {
                 Carte c = deckS.get(i);
@@ -239,7 +241,6 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
             this.setNom((String) ois.readObject());
             this.setPointsDeVie((int) ois.readObject());
             this.setPdvMax((int) ois.readObject());
-            this.ptsAction=(int) ois.readObject();
             ArrayList<Carte> deckS= new ArrayList<>();
             for (int i=0; i<3;i++) {
                 Carte c=new Carte("Carte","Description",0,0,Effets.physique,0,"image");

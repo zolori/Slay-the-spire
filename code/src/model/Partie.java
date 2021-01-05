@@ -1,5 +1,12 @@
 package model;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import view.SalleController;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +69,15 @@ public class Partie implements Serializable {
     public ArrayList<Salle> getSalles() { return salles; }
     public void addSalle(Salle s) { salles.add(s); }
 
-    public void finPartie() {
+    public void finPartie() throws IOException {
         // mettre fin à la partie
+        File fichier= new File("Partie.ser");
+        fichier.delete();
+        Parent p = FXMLLoader.load(getClass().getResource("/Defaite.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Defaite");
+        stage.setScene(new Scene(p, 400, 600));
+        stage.show();
     }
 
     public void setSalle(Salle s) { salles.add(s); }

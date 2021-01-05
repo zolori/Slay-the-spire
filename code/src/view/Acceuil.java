@@ -34,7 +34,7 @@ public class Acceuil {
 
     public void lancer(ActionEvent actionEvent) {
         Manager leManager = Manager.getInstance();
-        Joueur joueur = leManager.createJoueur("Jean", 300, 1);
+        Joueur joueur = leManager.createJoueur("Jean", 300);
         try {
             lancementPartie(actionEvent);
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class Acceuil {
                 FileInputStream sauvegarde = new FileInputStream("Partie.ser");
                 ObjectInputStream ois = new ObjectInputStream(sauvegarde);
 
-                Joueur j = new Joueur("Sauvegarde", 100, 4, 3);
+                Joueur j = new Joueur("Sauvegarde", 100, 3);
                 j.deserialisation(ois);
                 Salle s = new Salle(1);
                 s.deserialisation(ois);
@@ -57,7 +57,7 @@ public class Acceuil {
 
 
             Manager leManager = Manager.getInstance();
-            Joueur joueur = leManager.createJoueur("Jean", 300, 1);
+            Joueur joueur = leManager.createJoueur("Jean", 300);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Salle.fxml"));
             Parent p = loader.load();
@@ -66,7 +66,7 @@ public class Acceuil {
             SalleController sc=loader.getController();
             sc.loadPartie(j,s);
             stage.setScene(new Scene(p, 1000, 700));
-            // stage.setFullScreen(true); // Met en plein ecran
+            stage.setFullScreen(true); // Met en plein ecran
             stage.show();
             ((Node)(actionEvent.getSource())).getScene().getWindow().hide(); //Cache la 1er fenetre
 

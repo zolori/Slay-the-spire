@@ -21,7 +21,6 @@
          <children>
             <Button fx:id="VieMax" onAction="#VieMax" text="Vie Max +" />
             <Button fx:id="Regen" onAction="#Regen" text="Régénération Santé" />
-            <Button fx:id="PA" onAction="#PA" text="Points d'Actions +" />
             <Button fx:id="Degats" onAction="#Degats" text="Dégats +" />
          </children>
          <GridPane.margin>
