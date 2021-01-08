@@ -51,9 +51,6 @@ public class Partie implements Serializable {
         salles.add(s);
     }
 
-
-
-
     public Salle getSalle(int num) {
         return salles.get(num-1);
     }
@@ -70,14 +67,15 @@ public class Partie implements Serializable {
     public void addSalle(Salle s) { salles.add(s); }
 
     public void finPartie() throws IOException {
-        // mettre fin à la partie
         File fichier= new File("Partie.ser");
         fichier.delete();
+
         Parent p = FXMLLoader.load(getClass().getResource("/Defaite.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Defaite");
         stage.setScene(new Scene(p, 400, 600));
         stage.show();
+        stage.setFullScreen(true);
     }
 
     public void setSalle(Salle s) { salles.add(s); }

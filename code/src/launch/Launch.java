@@ -15,6 +15,6 @@ public class Launch extends Application {
         primaryStage.setScene(new Scene(root, 700, 700));
         primaryStage.setTitle("Accueil");
         primaryStage.show();
-
+        primaryStage.setFullScreen(true);
     }
 }

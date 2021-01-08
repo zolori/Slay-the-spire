@@ -144,47 +144,28 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
             empoisonne(mEmpoisonne, valPoison);
         }
         m.setPointsDeVie(m.getPointsDeVie() - val);
-        System.out.println(val + " Attaque");
-        if (m.getPointsDeVie() > 0) {
-            m.setEnattaque(true);
-            Timeline delai = new Timeline(
-                    new KeyFrame(Duration.seconds(2), event -> {
-                        try {
-                            attaquePlusTard(m, val);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    })
-            );
-            delai.play();
-        }
+        attendre(m, m.getDegats());
         return m.getPointsDeVie() <= 0;
-    }
-
-    private void attaquePlusTard(Personnage m, int degats) throws IOException {
-        Monstre monstre= (Monstre) m;
-        boolean Alive=monstre.attaque(this, degats);
-        monstre.setEnattaque(false);
-        if (!Alive){
-            lemanager.getPartie().finPartie();
-        }
     }
 
     public boolean soigne(int valeur, Monstre m) throws IOException {
         if (poisonEnCours != 0) {
             empoisonne(m, valPoison);
-            System.out.println(valPoison + " Soigne");
             if (getPointsDeVie() + valeur <= getPdvMax())
                 setPointsDeVie(getPointsDeVie() + valeur);
             else
                 setPointsDeVie(getPdvMax());
-            attaquePlusTard(m,m.getDegats());
+            attendre(m, m.getDegats());
             return m.getPointsDeVie() <= 0;
         }
-        else if (getPointsDeVie() + valeur <= getPdvMax())
+        else if (getPointsDeVie() + valeur <= getPdvMax()) {
+            attendre(m, m.getDegats());
             setPointsDeVie(getPointsDeVie() + valeur);
-        else
+        }
+        else {
+            attendre(m, m.getDegats());
             setPointsDeVie(getPdvMax());
+        }
 
         return false;
     }
@@ -198,14 +179,36 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
 
         poisonEnCours += c.getDelai();
         empoisonne(m, valPoison);
-
+        attendre(m, m.getDegats());
         return mEmpoisonne.getPointsDeVie() <= 0;
     }
 
     public void empoisonne(Monstre m, int val) {
         m.setPointsDeVie(m.getPointsDeVie() - val);
-        System.out.println(val + " Empoisonne");
         poisonEnCours -= 1;
+    }
+
+    private void attaquePlusTard(Personnage m, int degats) throws IOException {
+        Monstre monstre= (Monstre) m;
+        boolean Alive = monstre.attaque(this, degats);
+        if (!Alive){
+            lemanager.getPartie().finPartie();
+        }
+    }
+
+    private void attendre(Monstre m, int val) {
+        if (m.getPointsDeVie() > 0) {
+            Timeline delai = new Timeline(
+                    new KeyFrame(Duration.seconds(2), event -> {
+                        try {
+                            attaquePlusTard(m, val);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+            );
+            delai.play();
+        }
     }
 
     @Override

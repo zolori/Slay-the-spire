@@ -51,7 +51,6 @@ public class SalleController {
         leManager.getPartie().setJoueur(j);
         leManager.getPartie().setSalle(s);
         bind();
-
     }
 
     private void bind(){
@@ -64,10 +63,10 @@ public class SalleController {
         Monstre monstre = salleActuelle.getMonstre();
         monstreImageView.setImage(new Image(getClass().getResource(monstre.getImage()).toExternalForm()));
         vieMonstre.textProperty().bindBidirectional(monstre.pointsDeVieProperty(), new NumberStringConverter());
-
     }
 
     public void defaite() throws IOException {
+        deckListView.getScene().getWindow().hide();
         leManager.getPartie().finPartie();
     }
 
@@ -80,19 +79,6 @@ public class SalleController {
 
     public void useCard(Carte selectedItem) throws IOException {
         boolean changeSalle = false;
-
-        if(salleActuelle.getMonstre().isEnattaque()){
-            deckListView.setDisable(true);
-            Timeline delai = new Timeline(
-                    new KeyFrame(Duration.seconds(2), event -> {
-
-                    })
-            );
-            delai.play();
-            deckListView.setDisable(false);
-
-        }
-
         switch (selectedItem.getNom()) {
             case "Attaque":
                 changeSalle = joueur.attaque(salleActuelle.getMonstre(), selectedItem.getValeur());
@@ -108,7 +94,7 @@ public class SalleController {
         }
 
         if (joueur.getPointsDeVie() <= 0)
-            leManager.getPartie().finPartie();
+            defaite();
         else if (changeSalle){
             joueur.setNumSalle(salleActuelle.getNumSalle() + 1);
             salleActuelle.changerSalle();

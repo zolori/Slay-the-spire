@@ -10,8 +10,8 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.Defaite"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="view.Defaite">
+
     <center>
         <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
           <columnConstraints>
@@ -25,16 +25,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
            <children>
-              <Button mnemonicParsing="false" text="Réessayer" onAction="#Restart" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                 <GridPane.margin>
-                    <Insets left="70.0" />
-                 </GridPane.margin>
-              </Button>
-              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wasted" GridPane.columnIndex="1">
-                 <GridPane.margin>
-                    <Insets left="90.0" />
-                 </GridPane.margin>
-              </Text>
+              <Button mnemonicParsing="false" text="Réessayer" onAction="#restart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wasted" GridPane.columnIndex="1"/>
+               <Button mnemonicParsing="false" text="Quitter" onAction="#quitter" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
            </children>
         </GridPane>
     </center>

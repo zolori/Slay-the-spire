@@ -27,7 +27,7 @@ public class Acceuil {
         Stage stage = new Stage();
         stage.setTitle("Salle");
         stage.setScene(new Scene(p, 1000, 700));
-        // stage.setFullScreen(true); // Met en plein ecran
+        stage.setFullScreen(true); // Met en plein ecran
         stage.show();
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide(); //Cache la 1er fenetre
     }
@@ -41,20 +41,20 @@ public class Acceuil {
             e.printStackTrace();
         }
     }
-    public void charger(ActionEvent actionEvent){
+
+    public void charger(ActionEvent actionEvent) throws Exception{
         try {
-                FileInputStream sauvegarde = new FileInputStream("Partie.ser");
-                ObjectInputStream ois = new ObjectInputStream(sauvegarde);
+            FileInputStream sauvegarde = new FileInputStream("Partie.ser");
+            ObjectInputStream ois = new ObjectInputStream(sauvegarde);
 
-                Joueur j = new Joueur("Sauvegarde", 100, 3);
-                j.deserialisation(ois);
-                Salle s = new Salle(1);
-                s.deserialisation(ois);
-                Monstre m = new Monstre("Sauvegarde", 100, 1, 15);
-                m.deserialisation(ois);
-                s.setMonstre(m);
-                ois.close();
-
+            Joueur j = new Joueur("Sauvegarde", 100, 3);
+            j.deserialisation(ois);
+            Salle s = new Salle(1);
+            s.deserialisation(ois);
+            Monstre m = new Monstre("Sauvegarde", 100, 1, 15);
+            m.deserialisation(ois);
+            s.setMonstre(m);
+            ois.close();
 
             Manager leManager = Manager.getInstance();
             Joueur joueur = leManager.createJoueur("Jean", 300);
@@ -69,10 +69,13 @@ public class Acceuil {
             stage.setFullScreen(true); // Met en plein ecran
             stage.show();
             ((Node)(actionEvent.getSource())).getScene().getWindow().hide(); //Cache la 1er fenetre
-
         } catch (IOException e) {
-            //e.printStackTrace();
-            System.out.println("Pas de Sauvegarde");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Popup.fxml"));
+            Parent p = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Retour");
+            stage.setScene(new Scene(p, 200, 120));
+            stage.show();
         }
     }
 
@@ -80,5 +83,4 @@ public class Acceuil {
         File fichier= new File("Partie.ser");
         fichier.delete();
     }
-
 }
