@@ -93,6 +93,12 @@ public class SalleController {
                 break;
         }
 
+        desactiveClick(true);
+        Timeline delai = new Timeline(
+                new KeyFrame(Duration.seconds(2), event -> {desactiveClick(false);}));
+        delai.play();
+
+
         if (joueur.getPointsDeVie() <= 0)
             defaite();
         else if (changeSalle){
@@ -124,5 +130,10 @@ public class SalleController {
         stage.show();
         stage.setFullScreen(true);
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+    }
+
+    private void desactiveClick(boolean i){
+        deckListView.setDisable(i);
+
     }
 }

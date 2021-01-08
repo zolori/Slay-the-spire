@@ -30,9 +30,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-                   <Text textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"> Bienvenue !</Text>
-                   <Button fx:id="defaite" alignment="TOP_RIGHT" contentDisplay="RIGHT" onAction="#defaite" text="Abandonner" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
-                    <Button fx:id="Sauvegarde" alignment="TOP_LEFT" contentDisplay="RIGHT" onAction="#sauvegarde" text="Sauvegarder" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="LEFT" />
+             <HBox GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" style="-fx-background-color : white" maxWidth="80" maxHeight="15">
+                   <Text textAlignment="CENTER"  style="-fx-background-color : white"> Bienvenue !</Text>
+             </HBox>
+             <Button fx:id="defaite" alignment="TOP_RIGHT" contentDisplay="RIGHT" onAction="#defaite" text="Abandonner" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+             <Button fx:id="Sauvegarde" alignment="TOP_LEFT" contentDisplay="RIGHT" onAction="#sauvegarde" text="Sauvegarder" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="LEFT" />
 
          </children>
       </GridPane>
@@ -50,7 +52,7 @@
 
           <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" fx:id="ptsdevie">
               <ImageView fx:id="heroImageView" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitHeight="100" fitWidth="100"/>
-              <HBox alignment="CENTER" style="-fx-background-color : red">
+              <HBox alignment="CENTER" style="-fx-background-color : red" maxWidth="150">
                 <Text text="Points de vies" fx:id="vie" style="-fx-font-weight: bold; -fx-background-color : red;"/>
                 <Text text="/" style="-fx-font-weight: bold; -fx-background-color : red;"/>
                 <Text text="Pts de vie" fx:id="vietot" style="-fx-font-weight: bold; -fx-background-color : red;"/>
@@ -60,7 +62,9 @@
 
           <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER"  style="">
               <ImageView fx:id="monstreImageView" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitHeight="150" fitWidth="150"/>
-              <Text text="Pts de vie" fx:id="vieMonstre" style="-fx-font-weight: bold; -fx-background-color : red;"/>
+              <HBox alignment="CENTER" style="-fx-background-color : red" maxWidth="100">
+                <Text text="Pts de vie" fx:id="vieMonstre" style="-fx-font-weight: bold; -fx-background-color : red;"/>
+              </HBox>
           </VBox>
       </GridPane>
    </center>
@@ -70,7 +74,7 @@
            <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
            <children>
                <ListView fx:id="deckListView" GridPane.columnIndex="0" GridPane.rowIndex="0" orientation="HORIZONTAL"
-                         onMouseClicked="#handleMouseClick" minWidth="945">
+                         onMouseClicked="#handleMouseClick" minWidth="950" >
                    <cellFactory>
                        <TaskCellFactory/>
                    </cellFactory>
