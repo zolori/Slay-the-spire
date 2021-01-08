@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Label?>
+
 <?import javafx.scene.text.Text?>
-
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <GridPane BorderPane.alignment="CENTER">
@@ -16,12 +16,10 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text fx:id="NomCarte" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la carte" GridPane.halignment="CENTER" />
-            <Text fx:id="Action" strokeType="OUTSIDE" strokeWidth="0.0" text="Action" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Text fx:id="PA" strokeType="OUTSIDE" strokeWidth="0.0" text="Couts en points d'action" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Text fx:id="NomCarte" text="Nom de la carte" GridPane.halignment="CENTER" style="-fx-font-weight: bold;"/>
+            <Text fx:id="Action" text="Action" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>

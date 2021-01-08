@@ -12,7 +12,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.image.Image?>
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SalleController">
+   <ImageView>
+       <Image url="images/fond.jpg" requestedHeight="-Infinity" requestedWidth="-Infinity" preserveRatio="true"/>
+   </ImageView>
+
    <top>
       <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -43,19 +48,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
 
-          <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" fx:id="ptsdevie" >
+          <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" fx:id="ptsdevie">
               <ImageView fx:id="heroImageView" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitHeight="100" fitWidth="100"/>
-              <HBox alignment="CENTER">
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Points de vies" fx:id="vie" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/"/>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pts de vie" fx:id="vietot"/>
+              <HBox alignment="CENTER" style="-fx-background-color : red">
+                <Text text="Points de vies" fx:id="vie" style="-fx-font-weight: bold; -fx-background-color : red;"/>
+                <Text text="/" style="-fx-font-weight: bold; -fx-background-color : red;"/>
+                <Text text="Pts de vie" fx:id="vietot" style="-fx-font-weight: bold; -fx-background-color : red;"/>
               </HBox>
           </VBox>
 
 
-          <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER">
+          <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER"  style="">
               <ImageView fx:id="monstreImageView" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitHeight="150" fitWidth="150"/>
-              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pts de vie" fx:id="vieMonstre"/>
+              <Text text="Pts de vie" fx:id="vieMonstre" style="-fx-font-weight: bold; -fx-background-color : red;"/>
           </VBox>
       </GridPane>
    </center>

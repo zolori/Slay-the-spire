@@ -122,6 +122,7 @@ public class SalleController {
         stage.setTitle("Accueil");
         stage.setScene(new Scene(p, 400, 600));
         stage.show();
+        stage.setFullScreen(true);
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
     }
 }

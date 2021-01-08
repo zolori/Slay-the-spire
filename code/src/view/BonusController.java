@@ -51,6 +51,7 @@ public class BonusController /*implements Initializable*/{
         Stage stage = new Stage();
         stage.setTitle("Salle");
         stage.setScene(new Scene(p, 1000, 700));
+        stage.setFullScreen(true);
         stage.show();
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
         // stage.setFullScreen(true);
