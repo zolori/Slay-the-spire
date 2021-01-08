@@ -34,30 +34,30 @@ public class Acceuil {
 
     public void lancer(ActionEvent actionEvent) {
         Manager leManager = Manager.getInstance();
-        Joueur joueur = leManager.createJoueur("Jean", 300, 1);
+        Joueur joueur = leManager.createJoueur("Jean", 300);
         try {
             lancementPartie(actionEvent);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public void charger(ActionEvent actionEvent) throws Exception{
+    public void charger(ActionEvent actionEvent){
         try {
-            FileInputStream sauvegarde = new FileInputStream("Partie.ser");
-            ObjectInputStream ois = new ObjectInputStream(sauvegarde);
+                FileInputStream sauvegarde = new FileInputStream("Partie.ser");
+                ObjectInputStream ois = new ObjectInputStream(sauvegarde);
 
-            Joueur j = new Joueur("Sauvegarde", 100, 4, 3);
-            j.deserialisation(ois);
-            Salle s = new Salle(1);
-            s.deserialisation(ois);
-            Monstre m = new Monstre("Sauvegarde", 100, 1, 15);
-            m.deserialisation(ois);
-            s.setMonstre(m);
-            ois.close();
+                Joueur j = new Joueur("Sauvegarde", 100, 3);
+                j.deserialisation(ois);
+                Salle s = new Salle(1);
+                s.deserialisation(ois);
+                Monstre m = new Monstre("Sauvegarde", 100, 1, 15);
+                m.deserialisation(ois);
+                s.setMonstre(m);
+                ois.close();
+
 
             Manager leManager = Manager.getInstance();
-            Joueur joueur = leManager.createJoueur("Jean", 300, 1);
+            Joueur joueur = leManager.createJoueur("Jean", 300);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Salle.fxml"));
             Parent p = loader.load();
@@ -71,18 +71,13 @@ public class Acceuil {
             ((Node)(actionEvent.getSource())).getScene().getWindow().hide(); //Cache la 1er fenetre
 
         } catch (IOException e) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Popup.fxml"));
-            Parent p = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Retour");
-            stage.setScene(new Scene(p, 200, 120));
-            stage.show();
+            //e.printStackTrace();
+            System.out.println("Pas de Sauvegarde");
         }
     }
 
-    public void supprimer(ActionEvent actionEvent) throws Exception{
-        File fichier = new File("Partie.ser");
+    public void supprimer(ActionEvent actionEvent) {
+        File fichier= new File("Partie.ser");
         fichier.delete();
     }
 

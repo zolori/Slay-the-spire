@@ -10,6 +10,9 @@ public class Monstre implements Personnage, Serializable {
     private int numSalle;
     private int degats;
     private String nom;
+    private boolean enattaque=false;
+    public boolean isEnattaque() { return enattaque; }
+    public void setEnattaque(boolean enattaque) { this.enattaque = enattaque;  }
 
     private IntegerProperty pointsDeVie= new SimpleIntegerProperty();
 
@@ -48,7 +51,6 @@ public class Monstre implements Personnage, Serializable {
     @Override
     public boolean attaque(Personnage p, int val) {
         p.setPointsDeVie(p.getPointsDeVie() - degats);
-
         return p.getPointsDeVie() > 0;
     }
 
@@ -75,4 +77,6 @@ public class Monstre implements Personnage, Serializable {
             e.printStackTrace();
         }
     }
+
+
 }
