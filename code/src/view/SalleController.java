@@ -28,10 +28,6 @@ public class SalleController {
     Salle salleActuelle = leManager.getPartie().getSalle(joueur.getNumSalle());
 
     @FXML
-    private GridPane terrain;
-    @FXML
-    private VBox ptsdevie;
-    @FXML
     private ImageView heroImageView;
     @FXML
     private Text vie;

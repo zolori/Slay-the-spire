@@ -45,19 +45,19 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
     }
 
     private IntegerProperty pdvMax= new SimpleIntegerProperty();
-    public int getPdvMax(){return pdvMaxProperty().get();}
-    public IntegerProperty pdvMaxProperty() { return pdvMax; }
-    public void setPdvMax(int pdvMax) { this.pdvMax.set(pdvMax); }
+        public int getPdvMax(){return pdvMaxProperty().get();}
+        public IntegerProperty pdvMaxProperty() { return pdvMax; }
+        public void setPdvMax(int pdvMax) { this.pdvMax.set(pdvMax); }
 
     private StringProperty nom = new SimpleStringProperty();
-    public String getNom() { return nomProperty().get(); }
-    public void setNom(String value) { nomProperty().set(value); }
-    public StringProperty nomProperty() { return this.nom; }
+        public String getNom() { return nomProperty().get(); }
+        public void setNom(String value) { nomProperty().set(value); }
+        public StringProperty nomProperty() { return this.nom; }
 
     private IntegerProperty pdv = new SimpleIntegerProperty();
-    public int getPointsDeVie(){return pdvProperty().get();}
-    public void setPointsDeVie(int value){ pdvProperty().set(value);}
-    public IntegerProperty pdvProperty(){return this.pdv;}
+        public int getPointsDeVie(){return pdvProperty().get();}
+        public void setPointsDeVie(int value){ pdvProperty().set(value);}
+        public IntegerProperty pdvProperty(){return this.pdv;}
 
     public ObservableList<Carte> getDeck() { return deck; }
     public void setDeck(ObservableList<Carte> deck) { this.deck = deck; }

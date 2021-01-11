@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Partie implements Serializable {
-    private int nbTour;
+public class Partie {
     private ArrayList<Salle> salles;
     private final int NBSALLE = 21;
     private Joueur joueur;

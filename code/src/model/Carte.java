@@ -15,7 +15,6 @@ public class Carte implements Serializable,SerialisationPartie {
     private int delai;
     private int valeur;
     private Effets effet;
-    private int ptsAction;
 
     public Carte(String n, String des, int del, int val, Effets e, int pa, String img) {
         id = UUID.randomUUID().toString();
@@ -24,7 +23,6 @@ public class Carte implements Serializable,SerialisationPartie {
         delai = del;
         valeur = val;
         effet = e;
-        ptsAction = pa;
         imageUrl.set(img);
     }
 
@@ -43,22 +41,10 @@ public class Carte implements Serializable,SerialisationPartie {
         public StringProperty descriptionProperty() { return description; }
         public void setDescription(String name) { this.description.set(name); }
 
-    public String getId() { return id; }
     public int getDelai() {
         return delai;
     }
     public int getValeur() { return valeur; }
-    public Effets getEffet() { return effet; }
-    public int getPA() { return ptsAction; }
-
-    public ArrayList<Carte> renforcement(ArrayList<Carte> deck, Boolean isboss) {
-        if(isboss)
-            for ( Carte c : deck ) { c.valeur += 6; }
-        else
-            for ( Carte c : deck ) { c.valeur += 3; }
-
-        return deck;
-    }
 
 
     public void serialisation(ObjectOutputStream oos) {

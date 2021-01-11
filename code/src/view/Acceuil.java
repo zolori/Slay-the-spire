@@ -13,13 +13,6 @@ import model.*;
 import java.io.*;
 
 public class Acceuil {
-    @FXML
-    private Button lancer;
-    @FXML
-    private Button charger;
-    @FXML
-    private Button supprimer;
-
     public void lancementPartie(ActionEvent actionEvent) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Salle.fxml"));
         Parent p = loader.load();

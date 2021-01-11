@@ -17,8 +17,7 @@ public class Monstre implements Personnage, Serializable {
         public IntegerProperty pointsDeVieProperty() { return pointsDeVie; }
         public void setPointsDeVie(int pointsDeVie) { this.pointsDeVie.set(pointsDeVie); }
 
-    private ArrayList<Carte> deck;
-    private static ArrayList<Monstre> ensembleMonstres;
+
     private String image;
 
     public Monstre(String n, int pdv, int num, int d) {
