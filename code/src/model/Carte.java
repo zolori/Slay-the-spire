@@ -14,6 +14,7 @@ public class Carte implements Serializable,SerialisationPartie {
     private String id;
     private int delai;
     private int valeur;
+    private String valAffichage;
     private Effets effet;
 
     public Carte(String n, String des, int del, int val, Effets e, int pa, String img) {
@@ -46,6 +47,10 @@ public class Carte implements Serializable,SerialisationPartie {
     }
     public int getValeur() { return valeur; }
 
+    public String getValAffichage() {
+        valAffichage = "+" + this.getValeur();
+        return valAffichage;
+    }
 
     public void serialisation(ObjectOutputStream oos) {
         try {

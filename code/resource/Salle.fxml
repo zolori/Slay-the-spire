@@ -11,13 +11,9 @@
 <?import view.TaskCellFactory?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import java.net.URL?>
 
-<?import javafx.scene.image.Image?>
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SalleController">
-   <ImageView>
-       <Image url="images/fond.jpg" requestedHeight="-Infinity" requestedWidth="-Infinity" preserveRatio="true"/>
-   </ImageView>
-
+<BorderPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SalleController">
    <top>
       <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -30,12 +26,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-             <HBox GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" style="-fx-background-color : white" maxWidth="80" maxHeight="15">
-                   <Text textAlignment="CENTER"  style="-fx-background-color : white"> Bienvenue !</Text>
-             </HBox>
              <Button fx:id="defaite" alignment="TOP_RIGHT" contentDisplay="RIGHT" onAction="#defaite" text="Abandonner" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
              <Button fx:id="Sauvegarde" alignment="TOP_LEFT" contentDisplay="RIGHT" onAction="#sauvegarde" text="Sauvegarder" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="LEFT" />
-
          </children>
       </GridPane>
    </top>
@@ -52,18 +44,18 @@
 
           <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" fx:id="ptsdevie">
               <ImageView fx:id="heroImageView" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitHeight="100" fitWidth="100"/>
-              <HBox alignment="CENTER" style="-fx-background-color : red" maxWidth="150">
-                <Text text="Points de vies" fx:id="vie" style="-fx-font-weight: bold; -fx-background-color : red;"/>
-                <Text text="/" style="-fx-font-weight: bold; -fx-background-color : red;"/>
-                <Text text="Pts de vie" fx:id="vietot" style="-fx-font-weight: bold; -fx-background-color : red;"/>
+              <HBox alignment="CENTER" maxWidth="150">
+                <Text text="Points de vies" fx:id="vie"/>
+                <Text text="/"/>
+                <Text text="Pts de vie" fx:id="vietot"/>
               </HBox>
           </VBox>
 
 
-          <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER"  style="">
+          <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER">
               <ImageView fx:id="monstreImageView" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitHeight="150" fitWidth="150"/>
-              <HBox alignment="CENTER" style="-fx-background-color : red" maxWidth="100">
-                <Text text="Pts de vie" fx:id="vieMonstre" style="-fx-font-weight: bold; -fx-background-color : red;"/>
+              <HBox alignment="CENTER" maxWidth="150">
+                <Text text="Pts de vie" fx:id="vieMonstre"/>
               </HBox>
           </VBox>
       </GridPane>
@@ -83,4 +75,7 @@
        </GridPane>
    </bottom>
 
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
 </BorderPane>

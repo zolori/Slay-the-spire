@@ -94,9 +94,10 @@ public class SalleController {
                 new KeyFrame(Duration.seconds(2), event -> {desactiveClick(false);}));
         delai.play();
 
-
-        if (joueur.getPointsDeVie() <= 0)
+        if (joueur.getPointsDeVie() <= 0) {
+            deckListView.getScene().getWindow().hide();
             defaite();
+        }
         else if (changeSalle){
             joueur.setNumSalle(salleActuelle.getNumSalle() + 1);
             salleActuelle.changerSalle();

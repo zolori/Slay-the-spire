@@ -16,8 +16,8 @@ public class Partie {
     private ArrayList<Salle> salles;
     private final int NBSALLE = 21;
     private Joueur joueur;
-    private int pdv = 100;
-    private int degats = 10;
+    private int pdv = 66;
+    private int degats = 6;
     int i = 1;
 
     public Partie(Joueur j) {

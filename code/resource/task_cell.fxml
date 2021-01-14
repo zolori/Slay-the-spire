@@ -2,15 +2,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
+<?import java.net.URL?>
 
 <fx:root type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <graphic>
-        <VBox alignment="CENTER">
+        <VBox fx:id="cartes" alignment="CENTER" prefHeight="300" prefWidth="300">
             <children>
-                <ImageView fitHeight="300.0" fitWidth="300.0" fx:id="image" />
+                <ImageView fx:id="image" fitHeight="250.0" fitWidth="250.0"/>
                 <Label fx:id="titre"/>
-                <Label fx:id="description"/>
+                <Label fx:id="effet"/>
             </children>
         </VBox>
     </graphic>
+
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
 </fx:root>
