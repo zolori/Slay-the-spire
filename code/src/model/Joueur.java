@@ -27,9 +27,9 @@ public class Joueur implements Personnage,Serializable {
     Random rand = new Random();
 
     // --- Section Carte --- //
-    private int soin = 20;
-    private int attaque = 10;
-    private int poison = 5;
+    private int soin = 30;
+    private int attaque = 15;
+    private int poison = 8;
     public int poisonEnCours = 0;
     private int valPoison;
     private Monstre mEmpoisonne;

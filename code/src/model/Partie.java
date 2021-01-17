@@ -16,8 +16,8 @@ public class Partie implements Serializable{
     private ArrayList<Salle> salles=new ArrayList<>();
     private final int NBSALLE = 21;
     private Joueur joueur;
-    private int pdv = 100;
-    private int degats = 10;
+    private int pdv = 66;
+    private int degats = 6;
     int i = 1;
     private Salle salle;
     private Monstre monstre;

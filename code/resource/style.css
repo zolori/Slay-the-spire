@@ -1,0 +1,36 @@
+#pane{
+       -fx-background-image: url("/images/fond.jpg");
+       -fx-background-repeat: stretch;
+       -fx-background-size: auto;
+       -fx-background-position: center;
+       -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+HBox {
+    -fx-background-color : red;
+}
+
+#cartes {
+    -fx-border-color: #7a5540 ;
+    -fx-border-width: 5 ;
+    -fx-border-style: solid;
+    -fx-background-image: url('images/carte.png');
+    -fx-background-repeat: stretch;
+    -fx-background-size: 300 400;
+    -fx-background-position: left;
+    -fx-border-radius: 20;
+    -fx-border-width: 5;
+}
+
+#image {
+    -fx-border-radius: 4px;
+    -fx-margin: 50px
+}
+
+#titre, #effet {
+    -fx-font-weight: bold;
+}
+
+#deckListView{
+    -fx-background-color: none;
+}

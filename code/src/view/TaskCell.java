@@ -19,7 +19,7 @@ public class TaskCell extends ListCell<Carte> {
     private Label titre;
 
     @FXML
-    private Label description;
+    private Label effet;
 
     public TaskCell() {
         loadFXML();
@@ -47,7 +47,7 @@ public class TaskCell extends ListCell<Carte> {
             Image img = new Image(carte.getImageUrl());
             image.setImage(img);
             titre.setText(carte.getNom());
-            description.setText(carte.getDescription());
+            effet.setText(carte.getValAffichage());
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }
     }

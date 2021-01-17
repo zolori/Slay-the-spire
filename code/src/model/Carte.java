@@ -14,6 +14,7 @@ public class Carte implements Serializable {
     private String id;
     private int delai;
     private int valeur;
+    private String valAffichage;
     private Effets effet;
 
     public Carte(String n, String des, int del, int val, Effets e, int pa, String img) {
@@ -64,6 +65,11 @@ public class Carte implements Serializable {
     public void setDelai(int delai) { this.delai = delai; }
     public void setValeur(int valeur) { this.valeur = valeur; }
     public void setEffet(Effets effet) { this.effet = effet; }
+
+    public String getValAffichage() {
+        valAffichage = "+" + this.getValeur();
+        return valAffichage;
+    }
 
     public void setAll(Carte c){
             setNom(c.getNomSer());
