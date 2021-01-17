@@ -12,13 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Partie {
-    private ArrayList<Salle> salles;
+public class Partie implements Serializable{
+    private ArrayList<Salle> salles=new ArrayList<>();
     private final int NBSALLE = 21;
     private Joueur joueur;
     private int pdv = 100;
     private int degats = 10;
     int i = 1;
+    private Salle salle;
+    private Monstre monstre;
+    private ArrayList<Carte> deck;
 
     public Partie(Joueur j) {
         joueur = j;
@@ -47,6 +50,7 @@ public class Partie {
         joueur=j;
         j.setDeck(deck);
         s.setMonstre(m);
+        s.toString();
         salles.add(s);
     }
 
@@ -64,6 +68,12 @@ public class Partie {
     }
     public ArrayList<Salle> getSalles() { return salles; }
     public void addSalle(Salle s) { salles.add(s); }
+
+    public Salle getSalle() { return salle; }
+    public Monstre getMonstre() { return monstre; }
+    public void setMonstre(Monstre monstre) { this.monstre = monstre; }
+    public ArrayList<Carte> getDeck() { return deck; }
+    public void setDeck(ArrayList<Carte> deck) { this.deck = deck; }
 
     public void finPartie() throws IOException {
         File fichier= new File("Partie.ser");

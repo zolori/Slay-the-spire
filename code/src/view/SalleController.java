@@ -109,13 +109,15 @@ public class SalleController {
     }
 
     public void sauvegarde(ActionEvent actionEvent) throws IOException {
+        File f=new File("Partie.ser");
+        if(f.exists()){
+            f.delete();
+        }
+
         FileOutputStream sauvegarde = new FileOutputStream("Partie.ser");
         ObjectOutputStream oos = new ObjectOutputStream(sauvegarde);
         Manager manager=Manager.getInstance();
-        Partie partie=manager.getPartie();
-        partie.getJoueur().serialisation(oos);
-        partie.getSalle(partie.getJoueur().getNumSalle()).serialisation(oos);
-        partie.getSalle(partie.getJoueur().getNumSalle()).getMonstre().serialisation(oos);
+        manager.serialiser(oos);
 
         oos.close();
 

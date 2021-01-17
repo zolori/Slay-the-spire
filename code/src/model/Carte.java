@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Carte implements Serializable,SerialisationPartie {
+public class Carte implements Serializable {
     private String id;
     private int delai;
     private int valeur;
@@ -24,48 +24,68 @@ public class Carte implements Serializable,SerialisationPartie {
         valeur = val;
         effet = e;
         imageUrl.set(img);
+        nomSer=n;
+        descriptionSer=des;
+        imageSer=img;
     }
 
-    private final StringProperty nom = new SimpleStringProperty();
+    private final transient StringProperty nom = new SimpleStringProperty();
         public String getNom() { return nom.get(); }
         public StringProperty nomProperty() { return nom; }
         public void setNom(String name) { this.nom.set(name); }
+    private String nomSer;
+        public void setNomSer(String nom){nomSer=nom; setNom(nom);}
+        public String getNomSer(){return nomSer;}
 
-    private final StringProperty imageUrl = new SimpleStringProperty();
+
+    private final transient StringProperty imageUrl = new SimpleStringProperty();
         public String getImageUrl() { return imageUrl.get(); }
         public StringProperty imageUrlProperty() { return imageUrl; }
         public void setImageUrl(String imageUrl) { this.imageUrl.set(imageUrl); }
+    private String imageSer;
+        public void setimageSer(String image){imageSer=image; setImageUrl(image);}
+        public String getImageSer(){return imageSer;}
 
-    private final StringProperty description = new SimpleStringProperty();
+    private final transient StringProperty description = new SimpleStringProperty();
         public String getDescription() { return description.get(); }
         public StringProperty descriptionProperty() { return description; }
         public void setDescription(String name) { this.description.set(name); }
+    private String descriptionSer;
+        public void setdescriptionSer(String desc){descriptionSer=desc; setDescription(desc);}
+        public String getDescriptionSer(){return descriptionSer;}
+
 
     public int getDelai() {
         return delai;
     }
     public int getValeur() { return valeur; }
+    public Effets getEffet() { return effet; }
 
+    public void setDelai(int delai) { this.delai = delai; }
+    public void setValeur(int valeur) { this.valeur = valeur; }
+    public void setEffet(Effets effet) { this.effet = effet; }
 
-    public void serialisation(ObjectOutputStream oos) {
-        try {
-            oos.writeObject(getNom());
-            oos.writeObject(getImageUrl());
-            oos.writeObject(getDescription());
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+    public void setAll(Carte c){
+            setNom(c.getNomSer());
+            setImageUrl(c.getImageSer());
+            setDescription(c.getDescriptionSer());
+            setValeur(c.getValeur());
+            setDelai(c.getDelai());
+            setEffet(c.getEffet());
     }
 
-    public void deserialisation(ObjectInputStream ois) {
-        try {
-            setNom((String) ois.readObject());
-            setImageUrl((String) ois.readObject());
-            setDescription((String) ois.readObject());
-        } catch (final java.io.IOException e) {
-            e.printStackTrace();
-        } catch (final ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public String toString() {
+        return "Carte{" +
+                ", delai=" + delai +
+                ", valeur=" + valeur +
+                ", effet=" + effet +
+                ", nom=" + nom +
+                ", nomSer='" + nomSer + '\'' +
+                ", imageUrl=" + imageUrl +
+                ", imageSer='" + imageSer + '\'' +
+                ", description=" + description +
+                ", descriptionSer='" + descriptionSer + '\'' +
+                '}';
     }
 }

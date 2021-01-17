@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class Joueur implements Personnage,Serializable,SerialisationPartie {
+public class Joueur implements Personnage,Serializable {
     private int numSalle=0;
-    private ObservableList<Carte> deck;
+    private transient ObservableList<Carte> deck;
     private Manager lemanager=Manager.getInstance();
 
     private String image;
@@ -42,22 +42,35 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
         deck = FXCollections.observableArrayList();
         initDeck(nbDeckCartes);
         image="/images/hero.png";
+        pdvMaxSer=getPdvMax();
+        pdvSer=getPointsDeVie();
+        nomSer=n;
+
     }
 
-    private IntegerProperty pdvMax= new SimpleIntegerProperty();
+    private transient IntegerProperty pdvMax= new SimpleIntegerProperty();
         public int getPdvMax(){return pdvMaxProperty().get();}
         public IntegerProperty pdvMaxProperty() { return pdvMax; }
         public void setPdvMax(int pdvMax) { this.pdvMax.set(pdvMax); }
+    private int pdvMaxSer;
+    public int getPdvMaxSer() { return pdvMaxSer; }
+    public void setPdvMaxSer(int pdvMaxSer) { this.pdvMaxSer = pdvMaxSer; setPdvMax(pdvMaxSer); }
 
-    private StringProperty nom = new SimpleStringProperty();
+    private transient StringProperty nom = new SimpleStringProperty();
         public String getNom() { return nomProperty().get(); }
         public void setNom(String value) { nomProperty().set(value); }
         public StringProperty nomProperty() { return this.nom; }
+    private String nomSer;
+    public void setNomSer(String nomSer) { this.nomSer = nomSer; setNom(nomSer); }
+    public String getNomSer() { return nomSer; }
 
-    private IntegerProperty pdv = new SimpleIntegerProperty();
+    private transient IntegerProperty pdv = new SimpleIntegerProperty();
         public int getPointsDeVie(){return pdvProperty().get();}
-        public void setPointsDeVie(int value){ pdvProperty().set(value);}
+        public void setPointsDeVie(int value){ pdvProperty().set(value); pdvSer=getPointsDeVie();}
         public IntegerProperty pdvProperty(){return this.pdv;}
+    private int pdvSer;
+    public int getPdvSer() { return pdvSer; }
+    public void setPdvSer(int pdvSer) { this.pdvSer = pdvSer; setPointsDeVie(pdvSer); }
 
     public ObservableList<Carte> getDeck() { return deck; }
     public void setDeck(ObservableList<Carte> deck) { this.deck = deck; }
@@ -216,45 +229,10 @@ public class Joueur implements Personnage,Serializable,SerialisationPartie {
         return getNom() + getPointsDeVie() + getDeck();
     }
 
-    public void serialisation(ObjectOutputStream oos) {
-        Manager m = Manager.getInstance();
-        Partie p = m.getPartie();
-        Joueur j=p.getJoueur();
-        String nom =j.getNom();
-        int pdv=j.getPointsDeVie();
-        List<Carte> deck=j.getDeck().stream().collect(Collectors.toList());
 
-        try {
-            oos.writeObject(nom);
-            oos.writeObject(pdv);
-            oos.writeObject(getPdvMax());
-            ArrayList<Carte> deckS= new ArrayList<>(deck);
-            for (int i=0; i<deckS.size();i++) {
-                Carte c = deckS.get(i);
-                c.serialisation(oos);
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void deserialisation(ObjectInputStream ois) {
-        Joueur j=null;
-        try {
-            this.setNom((String) ois.readObject());
-            this.setPointsDeVie((int) ois.readObject());
-            this.setPdvMax((int) ois.readObject());
-            ArrayList<Carte> deckS= new ArrayList<>();
-            for (int i=0; i<3;i++) {
-                Carte c=new Carte("Carte","Description",0,0,Effets.physique,0,"image");
-                c.deserialisation(ois);
-                deckS.add(c);
-            }
-            this.setDeck(deckS);
-        } catch (final java.io.IOException e) {
-            e.printStackTrace();
-        } catch (final ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public void setAll(Joueur j) {
+        setNomSer(j.getNomSer());
+        setPdvMaxSer(j.getPdvMaxSer());
+        setPdvSer(j.getPdvSer());
     }
 }

@@ -39,17 +39,17 @@ public class Acceuil {
         try {
             FileInputStream sauvegarde = new FileInputStream("Partie.ser");
             ObjectInputStream ois = new ObjectInputStream(sauvegarde);
+            Manager leManager = Manager.getInstance();
 
-            Joueur j = new Joueur("Sauvegarde", 100, 3);
-            j.deserialisation(ois);
-            Salle s = new Salle(1);
-            s.deserialisation(ois);
-            Monstre m = new Monstre("Sauvegarde", 100, 1, 15);
-            m.deserialisation(ois);
-            s.setMonstre(m);
+            leManager.deserialiser(ois);
+
+            Partie partie=leManager.getPartie();
+            Joueur j = partie.getJoueur();
+            Salle s = partie.getSalle(j.getNumSalle());
+            s.toString();
+            Monstre m = s.getMonstre();
             ois.close();
 
-            Manager leManager = Manager.getInstance();
             Joueur joueur = leManager.createJoueur("Jean", 300);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Salle.fxml"));

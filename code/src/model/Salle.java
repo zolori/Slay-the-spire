@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Salle implements Serializable,SerialisationPartie {
+public class Salle implements Serializable {
     private int numSalle;
     private Monstre monstre;
 
@@ -28,6 +28,7 @@ public class Salle implements Serializable,SerialisationPartie {
     public int getNumSalle() {
         return numSalle;
     }
+    public void setNumSalle(int num){numSalle=num;}
 
     public boolean contientBoss() {
         boolean oui = false;
@@ -44,23 +45,4 @@ public class Salle implements Serializable,SerialisationPartie {
         stage.show();
     }
 
-
-
-    public void serialisation(ObjectOutputStream oos) {
-        try {
-            oos.writeObject(numSalle);
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void deserialisation(ObjectInputStream ois) {
-        try {
-            numSalle= (int) ois.readObject();
-        } catch (final java.io.IOException e) {
-            e.printStackTrace();
-        } catch (final ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }

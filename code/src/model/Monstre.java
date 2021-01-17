@@ -11,11 +11,15 @@ public class Monstre implements Personnage, Serializable {
     private int degats;
     private String nom;
 
-    private IntegerProperty pointsDeVie= new SimpleIntegerProperty();
-
-    public int getPointsDeVie() { return pointsDeVie.get(); }
+    private transient IntegerProperty pointsDeVie= new SimpleIntegerProperty();
+        public int getPointsDeVie() { return pointsDeVie.get(); }
         public IntegerProperty pointsDeVieProperty() { return pointsDeVie; }
-        public void setPointsDeVie(int pointsDeVie) { this.pointsDeVie.set(pointsDeVie); }
+        public void setPointsDeVie(int pointsDeVie) { this.pointsDeVie.set(pointsDeVie); pdv=getPointsDeVie();}
+
+    private int pdv;
+    public int getPdv() { return pdv; }
+    public void setPdv(int pdv){this.pdv=pdv;}
+
 
 
     private String image;
@@ -37,6 +41,10 @@ public class Monstre implements Personnage, Serializable {
     }
     public String getImage() { return image; }
 
+    public void setNumSalle(int numSalle) { this.numSalle = numSalle; }
+    public void setDegats(int degats) { this.degats = degats; }
+    public void setNom(String nom) { this.nom = nom; }
+
     protected boolean isBoss() {
         if (this.getClass().getName() == "Boss"){
             return true;
@@ -50,29 +58,10 @@ public class Monstre implements Personnage, Serializable {
         return p.getPointsDeVie() > 0;
     }
 
-    public void serialisation(ObjectOutputStream oos) {
-        try {
-            oos.writeObject(getNom());
-            oos.writeObject(getPointsDeVie());
-            oos.writeObject(getSalle());
-            oos.writeObject(getDegats());
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+    public void setAll(Monstre m) {
+        setNom(m.getNom());
+        setPointsDeVie(m.getPdv());
+        setNumSalle(m.getSalle());
+        setDegats(m.getDegats());
     }
-
-    public void deserialisation(ObjectInputStream ois) {
-        try {
-            nom= (String) ois.readObject();
-            setPointsDeVie((int) ois.readObject());
-            numSalle=(int) ois.readObject();
-            degats= (int) ois.readObject();
-        } catch (final java.io.IOException e) {
-            e.printStackTrace();
-        } catch (final ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }
