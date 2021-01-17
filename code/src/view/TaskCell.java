@@ -27,7 +27,7 @@ public class TaskCell extends ListCell<Carte> {
 
     private void loadFXML() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/task_cell.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Task_cell.fxml"));
             loader.setController(this);
             loader.setRoot(this);
             loader.load();
@@ -39,7 +39,6 @@ public class TaskCell extends ListCell<Carte> {
     @Override
     protected void updateItem(Carte carte, boolean empty) {
         super.updateItem(carte, empty);
-
         if (empty) {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);

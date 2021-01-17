@@ -1,13 +1,10 @@
 package model;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.*;
-import java.util.ArrayList;
 
 public class Salle implements Serializable {
     private int numSalle;
@@ -16,19 +13,15 @@ public class Salle implements Serializable {
     public Salle(int numeroSalle) {
         numSalle = numeroSalle;
     }
-
     public Monstre getMonstre() {
         return monstre;
     }
-
     public void setMonstre(Monstre m){
         monstre = m;
     }
-
     public int getNumSalle() {
         return numSalle;
     }
-    public void setNumSalle(int num){numSalle=num;}
 
     public boolean contientBoss() {
         boolean oui = false;

@@ -18,9 +18,7 @@ public class BonusController /*implements Initializable*/{
     Joueur j = leManager.getPartie().getJoueur();
     Salle salleActuelle = leManager.getPartie().getSalle(j.getNumSalle());
 
-    public void initialize() {
-
-    }
+    public void initialize() {}
 
     public void VieMax(ActionEvent actionEvent) throws IOException {
         j.renforcer(Bonus.VieMax, salleActuelle);
@@ -31,7 +29,6 @@ public class BonusController /*implements Initializable*/{
         j.renforcer(Bonus.Regeneration, salleActuelle);
         retourAccueil(actionEvent);
     }
-
 
     public void Degats(ActionEvent actionEvent) throws IOException{
         j.renforcer(Bonus.Degats, salleActuelle);
@@ -54,6 +51,5 @@ public class BonusController /*implements Initializable*/{
         stage.setFullScreen(true);
         stage.show();
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        // stage.setFullScreen(true);
     }
 }

@@ -1,32 +1,23 @@
 package model;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.SalleController;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class Partie implements Serializable{
-    private ArrayList<Salle> salles=new ArrayList<>();
+    private ArrayList<Salle> salles = new ArrayList<>();
     private final int NBSALLE = 21;
     private Joueur joueur;
     private int pdv = 66;
     private int degats = 6;
-    int i = 1;
-    private Salle salle;
-    private Monstre monstre;
-    private ArrayList<Carte> deck;
 
     public Partie(Joueur j) {
         joueur = j;
         joueur.setNumSalle(1);
-        salles = new ArrayList<Salle>(NBSALLE-1);
+        salles = new ArrayList<>(NBSALLE-1);
 
         for (int i = 1; i < NBSALLE; i++) {
             Salle s = new Salle(i);
@@ -37,8 +28,8 @@ public class Partie implements Serializable{
                 s.setMonstre(m);
 
             }else{
-                pdv = (int) (pdv * 2);
-                degats = (int) (degats * 2);
+                pdv = pdv * 2;
+                degats = degats * 2;
                 Boss b = new Boss("Boss", pdv, i, degats);
                 s.setMonstre(b);
             }
@@ -47,7 +38,7 @@ public class Partie implements Serializable{
     }
 
     public Partie(Joueur j, ArrayList<Carte> deck, Salle s, Monstre m) {
-        joueur=j;
+        joueur = j;
         j.setDeck(deck);
         s.setMonstre(m);
         s.toString();
@@ -57,23 +48,14 @@ public class Partie implements Serializable{
     public Salle getSalle(int num) {
         return salles.get(num-1);
     }
-    public int getNbSalle() {
-        return NBSALLE;
-    }
+
     public Joueur getJoueur() {
         return joueur;
     }
+
     public void setJoueur(Joueur joueur) {
         this.joueur = joueur;
     }
-    public ArrayList<Salle> getSalles() { return salles; }
-    public void addSalle(Salle s) { salles.add(s); }
-
-    public Salle getSalle() { return salle; }
-    public Monstre getMonstre() { return monstre; }
-    public void setMonstre(Monstre monstre) { this.monstre = monstre; }
-    public ArrayList<Carte> getDeck() { return deck; }
-    public void setDeck(ArrayList<Carte> deck) { this.deck = deck; }
 
     public void finPartie() throws IOException {
         File fichier= new File("Partie.ser");

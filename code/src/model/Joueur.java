@@ -2,27 +2,21 @@ package model;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class Joueur implements Personnage,Serializable {
-    private int numSalle=0;
+    private int numSalle;
     private transient ObservableList<Carte> deck;
-    private Manager lemanager=Manager.getInstance();
-
+    private Manager lemanager = Manager.getInstance();
     private String image;
     Random rand = new Random();
 
@@ -41,17 +35,18 @@ public class Joueur implements Personnage,Serializable {
         numSalle = 1;
         deck = FXCollections.observableArrayList();
         initDeck(nbDeckCartes);
-        image="/images/hero.png";
-        pdvMaxSer=getPdvMax();
-        pdvSer=getPointsDeVie();
-        nomSer=n;
+        image = "/images/hero.png";
+        pdvMaxSer = getPdvMax();
+        pdvSer = getPointsDeVie();
+        nomSer = n;
 
     }
 
     private transient IntegerProperty pdvMax= new SimpleIntegerProperty();
-        public int getPdvMax(){return pdvMaxProperty().get();}
+        public int getPdvMax(){ return pdvMaxProperty().get();}
         public IntegerProperty pdvMaxProperty() { return pdvMax; }
         public void setPdvMax(int pdvMax) { this.pdvMax.set(pdvMax); }
+
     private int pdvMaxSer;
     public int getPdvMaxSer() { return pdvMaxSer; }
     public void setPdvMaxSer(int pdvMaxSer) { this.pdvMaxSer = pdvMaxSer; setPdvMax(pdvMaxSer); }
@@ -60,6 +55,7 @@ public class Joueur implements Personnage,Serializable {
         public String getNom() { return nomProperty().get(); }
         public void setNom(String value) { nomProperty().set(value); }
         public StringProperty nomProperty() { return this.nom; }
+
     private String nomSer;
     public void setNomSer(String nomSer) { this.nomSer = nomSer; setNom(nomSer); }
     public String getNomSer() { return nomSer; }
@@ -73,7 +69,6 @@ public class Joueur implements Personnage,Serializable {
     public void setPdvSer(int pdvSer) { this.pdvSer = pdvSer; setPointsDeVie(pdvSer); }
 
     public ObservableList<Carte> getDeck() { return deck; }
-    public void setDeck(ObservableList<Carte> deck) { this.deck = deck; }
     public void setDeck(ArrayList<Carte> deck){
         for(int i=0; i<3; i++){
             this.deck.set(i, deck.get(i));
@@ -98,33 +93,27 @@ public class Joueur implements Personnage,Serializable {
         if (this.numSalle == s.getNumSalle() && s.contientBoss()) //Si on tue un boss, bonus améliorés
         {
             switch (b) {
-                case Degats:
-                    soin += (int)(soin / 1.5);
+                case Degats -> {
+                    soin += (int) (soin / 1.5);
                     attaque += attaque / 2;
                     poison += poison / 2;
-                    break;
-                case VieMax:
-                    setPdvMax((int) (getPdvMax()*1.2)); //On augmente le maximum de pdv
-                    break;
-                case Regeneration:
-                    setPdvMax((int) (getPdvMax()*1.1)); //On augmente le maximum de pdv
+                }
+                case VieMax -> setPdvMax((int) (getPdvMax() * 1.2)); //On augmente le maximum de pdv
+                case Regeneration -> {
+                    setPdvMax((int) (getPdvMax() * 1.1)); //On augmente le maximum de pdv
                     soin(); // On remet le joueur au maximum de ses pts de vie
-                    break;
+                }
             }
         }
         else {
             switch (b) {
-                case Degats:
+                case Degats -> {
                     soin += soin / 2;
                     attaque += attaque / 2;
                     poison += poison / 2;
-                    break;
-                case VieMax:
-                    setPdvMax(getPdvMax() + 15*getNumSalle()); //On augmente le maximum de pdv
-                    break;
-                case Regeneration:
-                    soin(); // On remet le joueur au maximum de ses pts de vie
-                    break;
+                }
+                case VieMax -> setPdvMax(getPdvMax() + 15 * getNumSalle()); //On augmente le maximum de pdv
+                case Regeneration -> soin(); // On remet le joueur au maximum de ses pts de vie
             }
         }
     }
@@ -143,11 +132,11 @@ public class Joueur implements Personnage,Serializable {
         int n = rand.nextInt(4);
 
         if (n == 0)
-            return new Carte("Soin", "Soigne vos points de vie", 1, soin, Effets.magique, 1, "images/coeur.png");
+            return new Carte("Soin", "Soigne vos points de vie", 1, soin, "images/coeur.png");
         else if (n == 1)
-            return new Carte("Poison", "Empoisonne l'ennemi", 3, poison, Effets.duree, 1, "images/poison.png");
+            return new Carte("Poison", "Empoisonne l'ennemi", 3, poison, "images/poison.png");
         else
-            return new Carte("Attaque", "Attaque directe", 1, attaque, Effets.physique, 1, "images/epee.png");
+            return new Carte("Attaque", "Attaque directe", 1, attaque, "images/epee.png");
     }
 
     @Override
@@ -161,7 +150,7 @@ public class Joueur implements Personnage,Serializable {
         return m.getPointsDeVie() <= 0;
     }
 
-    public boolean soigne(int valeur, Monstre m) throws IOException {
+    public boolean soigne(int valeur, Monstre m) {
         if (poisonEnCours != 0) {
             empoisonne(m, valPoison);
             if (getPointsDeVie() + valeur <= getPdvMax())
@@ -179,14 +168,12 @@ public class Joueur implements Personnage,Serializable {
             attendre(m, m.getDegats());
             setPointsDeVie(getPdvMax());
         }
-
         return false;
     }
 
     public boolean empoisonnement(Monstre m, Carte c) {
         mEmpoisonne = m;
         valPoison = c.getValeur();
-
         if (poisonEnCours != 0)
             empoisonne(mEmpoisonne, valPoison);
 

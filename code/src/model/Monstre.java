@@ -2,9 +2,7 @@ package model;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-
 import java.io.*;
-import java.util.ArrayList;
 
 public class Monstre implements Personnage, Serializable {
     private int numSalle;
@@ -18,7 +16,6 @@ public class Monstre implements Personnage, Serializable {
 
     private int pdv;
     public int getPdv() { return pdv; }
-    public void setPdv(int pdv){this.pdv=pdv;}
 
 
 
@@ -46,10 +43,7 @@ public class Monstre implements Personnage, Serializable {
     public void setNom(String nom) { this.nom = nom; }
 
     protected boolean isBoss() {
-        if (this.getClass().getName() == "Boss"){
-            return true;
-        }
-        return false;
+        return this.getClass().getName() == "Boss";
     }
 
     @Override

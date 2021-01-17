@@ -7,15 +7,13 @@
 <fx:root type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <graphic>
         <VBox fx:id="cartes" alignment="CENTER" prefHeight="300" prefWidth="300">
-            <children>
-                <ImageView fx:id="image" fitHeight="250.0" fitWidth="250.0"/>
-                <Label fx:id="titre"/>
-                <Label fx:id="effet"/>
-            </children>
+            <ImageView fx:id="image" fitHeight="250.0" fitWidth="250.0"/>
+            <Label fx:id="titre"/>
+            <Label fx:id="effet"/>
         </VBox>
     </graphic>
 
     <stylesheets>
-        <URL value="@style.css" />
+        <URL value="@Style.css" />
     </stylesheets>
 </fx:root>

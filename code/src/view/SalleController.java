@@ -11,15 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 import model.*;
-
 import java.io.*;
 
 public class SalleController {
@@ -42,7 +38,7 @@ public class SalleController {
     Carte selectedItem;
 
     public void loadPartie (Joueur j, Salle s){
-        joueur=j;
+        joueur = j;
         salleActuelle=s;
         leManager.getPartie().setJoueur(j);
         leManager.getPartie().setSalle(s);
@@ -66,7 +62,7 @@ public class SalleController {
         leManager.getPartie().finPartie();
     }
 
-    @FXML public void handleMouseClick(MouseEvent arg0) throws IOException {
+    @FXML public void handleMouseClick() throws IOException {
         int selectedCarteIndex = deckListView.getSelectionModel().getSelectedIndex();
         selectedItem = deckListView.getSelectionModel().getSelectedItem();
         useCard(selectedItem);
@@ -88,12 +84,10 @@ public class SalleController {
             default :
                 break;
         }
-
         desactiveClick(true);
         Timeline delai = new Timeline(
-                new KeyFrame(Duration.seconds(2), event -> {desactiveClick(false);}));
+                new KeyFrame(Duration.seconds(2), event -> desactiveClick(false)));
         delai.play();
-
         if (joueur.getPointsDeVie() <= 0) {
             deckListView.getScene().getWindow().hide();
             defaite();
@@ -110,14 +104,13 @@ public class SalleController {
     }
 
     public void sauvegarde(ActionEvent actionEvent) throws IOException {
-        File f=new File("Partie.ser");
+        File f = new File("Partie.ser");
         if(f.exists()){
             f.delete();
         }
-
         FileOutputStream sauvegarde = new FileOutputStream("Partie.ser");
         ObjectOutputStream oos = new ObjectOutputStream(sauvegarde);
-        Manager manager=Manager.getInstance();
+        Manager manager = Manager.getInstance();
         manager.serialiser(oos);
 
         oos.close();
@@ -133,6 +126,5 @@ public class SalleController {
 
     private void desactiveClick(boolean i){
         deckListView.setDisable(i);
-
     }
 }
