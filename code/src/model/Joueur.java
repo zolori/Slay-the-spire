@@ -93,13 +93,13 @@ public class Joueur implements Personnage,Serializable {
         if (this.numSalle == s.getNumSalle() && s.contientBoss()) //Si on tue un boss, bonus améliorés
         {
             switch (b) {
-                case Degats -> {
+                case Degats : {
                     soin += (int) (soin / 1.5);
                     attaque += attaque / 2;
                     poison += poison / 2;
                 }
-                case VieMax -> setPdvMax((int) (getPdvMax() * 1.2)); //On augmente le maximum de pdv
-                case Regeneration -> {
+                case VieMax : setPdvMax((int) (getPdvMax() * 1.2)); //On augmente le maximum de pdv
+                case Regeneration : {
                     setPdvMax((int) (getPdvMax() * 1.1)); //On augmente le maximum de pdv
                     soin(); // On remet le joueur au maximum de ses pts de vie
                 }
@@ -107,13 +107,13 @@ public class Joueur implements Personnage,Serializable {
         }
         else {
             switch (b) {
-                case Degats -> {
+                case Degats : {
                     soin += soin / 2;
                     attaque += attaque / 2;
                     poison += poison / 2;
                 }
-                case VieMax -> setPdvMax(getPdvMax() + 15 * getNumSalle()); //On augmente le maximum de pdv
-                case Regeneration -> soin(); // On remet le joueur au maximum de ses pts de vie
+                case VieMax : setPdvMax(getPdvMax() + 15 * getNumSalle()); //On augmente le maximum de pdv
+                case Regeneration : soin(); // On remet le joueur au maximum de ses pts de vie
             }
         }
     }

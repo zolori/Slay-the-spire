@@ -13,6 +13,7 @@ public class Partie implements Serializable{
     private Joueur joueur;
     private int pdv = 66;
     private int degats = 6;
+    private Salle salleactuelle;
 
     public Partie(Joueur j) {
         joueur = j;
@@ -35,18 +36,25 @@ public class Partie implements Serializable{
             }
             salles.add(s);
         }
+        salleactuelle=getSalle(joueur.getNumSalle());
     }
 
     public Partie(Joueur j, ArrayList<Carte> deck, Salle s, Monstre m) {
+        this(j);
         joueur = j;
         j.setDeck(deck);
         s.setMonstre(m);
         s.toString();
-        salles.add(s);
+        salles.remove(s.getNumSalle()-1);
+        salles.add(s.getNumSalle()-1,s);
     }
 
     public Salle getSalle(int num) {
         return salles.get(num-1);
+    }
+
+    public Salle getSalleActuelle(){
+        return salleactuelle;
     }
 
     public Joueur getJoueur() {
@@ -56,6 +64,8 @@ public class Partie implements Serializable{
     public void setJoueur(Joueur joueur) {
         this.joueur = joueur;
     }
+
+    public void setSalleactuelle(Salle salleactuelle) { this.salleactuelle = salleactuelle; }
 
     public void finPartie() throws IOException {
         File fichier= new File("Partie.ser");
