@@ -178,9 +178,16 @@ public class Joueur implements Personnage {
                     soin += soin / 2;
                     attaque += attaque / 2;
                     poison += poison / 2;
+                    break;
                 }
-                case VieMax : setPdvMax(getPdvMax() + 15 * getNumSalle()); //On augmente le maximum de pdv
-                case Regeneration : soin(); // On remet le joueur au maximum de ses pts de vie
+                case VieMax : {
+                    setPdvMax(getPdvMax() + 15 * getNumSalle());//On augmente le maximum de pdv
+                    break;
+                }
+                case Regeneration : {
+                    soin(); // On remet le joueur au maximum de ses pts de vie
+                    break;
+                }
             }
         }
     }
