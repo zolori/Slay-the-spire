@@ -7,13 +7,41 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Partie implements Serializable{
+/**
+ * Partie dans laquelle se déroule le jeu.
+ */
+public class Partie {
+    /**
+     * liste de salle que contient la partie.
+     */
     private ArrayList<Salle> salles = new ArrayList<>();
+
+    /**
+     * Nombre de salle
+     */
     private final int NBSALLE = 21;
+
+    /**
+     * Joueur utilisé par l'utilisateur.
+     */
     private Joueur joueur;
+
+    /**
+     * Points de vie de base pour la création des monstres.
+     */
     private int pdv = 66;
+
+    /**
+     * Dégats de base pour la création des monstres.
+     */
     private int degats = 6;
 
+    /**
+     * Constructeur de Partie.
+     *
+     * @param j
+     *      Joueur utilisé dans la partie par l'utilisateur.
+     */
     public Partie(Joueur j) {
         joueur = j;
         joueur.setNumSalle(1);
@@ -30,13 +58,26 @@ public class Partie implements Serializable{
             }else{
                 pdv = pdv * 2;
                 degats = degats * 2;
-                Boss b = new Boss("Boss", pdv, i, degats);
+                Monstre b = new Boss("Boss",pdv,i,degats);
                 s.setMonstre(b);
             }
             salles.add(s);
         }
     }
 
+    /**
+     * 2e Constructeur de Partie.
+     * Utilisé lors de la récupération des données d'una partie sauvegardée.
+     *
+     * @param j
+     *      Joueur sauvegardé.
+     * @param deck
+     *      Deck sauvegardé.
+     * @param s
+     *      Salle sauvegardée.
+     * @param m
+     *      Monstre sauvegardé.
+     */
     public Partie(Joueur j, ArrayList<Carte> deck, Salle s, Monstre m) {
         joueur = j;
         j.setDeck(deck);
@@ -45,20 +86,39 @@ public class Partie implements Serializable{
         salles.add(s);
     }
 
+    /**
+     * @param num
+     *      Numéro de salle où se trouve le joueur.
+     * @return le numéro de la salle actuelle.
+     */
     public Salle getSalle(int num) {
         return salles.get(num-1);
     }
 
+    /**
+     * @return le joueur.
+     */
     public Joueur getJoueur() {
         return joueur;
     }
 
+    /**
+     * Met à jour le joueur.
+     *
+     * @param joueur
+     */
     public void setJoueur(Joueur joueur) {
         this.joueur = joueur;
     }
 
+    /**
+     * Gère la fin de la partie.
+     *
+     * @throws IOException
+     *      si load échoue, renvoie exception.
+     */
     public void finPartie() throws IOException {
-        File fichier= new File("Partie.ser");
+        File fichier = new File("Partie.ser");
         fichier.delete();
 
         Parent p = FXMLLoader.load(getClass().getResource("/Defaite.fxml"));

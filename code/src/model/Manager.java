@@ -7,28 +7,61 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manager de l'application
+ */
 public class Manager implements Serializable {
+    /**
+     * Partie de jeu.
+     */
     private Partie partie;
 
-    private Manager(){}
-
+    /**
+     * (seule) Instance de manager.
+     */
     private static Manager INSTANCE = new Manager();
 
+    /**
+     * @return l'instance du manager
+     */
     public static  Manager getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * Créé un joueur pour pouvoir créer la partie.
+     *
+     * @param nom
+     *      Nom du joueur.
+     * @param pdv
+     *      Points de vie du joueur.
+     */
     public void createJoueur(String nom, int pdv) {
         Joueur joueur = new Joueur(nom, pdv, 3);
         partie = new Partie(joueur);
     }
 
+    /**
+     * @return la partie en cours.
+     */
     public Partie getPartie() {
         return partie;
     }
 
-    public void setPartie(Partie p){partie=p;}
-    
+    /**
+     * Met à jour la partie.
+     *
+     * @param p
+     *      Nouvelle partie.
+     */
+    public void setPartie(Partie p) { partie = p; }
+
+    /**
+     * Sauvegarde les données.
+     *
+     * @param oos
+     *      Sert à écrire dans le fichier spécifié.
+     */
     public void serialiser(ObjectOutputStream oos){
         Partie p = this.getPartie();
         Joueur j = p.getJoueur();
@@ -45,12 +78,17 @@ public class Manager implements Serializable {
                 oos.writeObject(c);
             }
             oos.writeObject(m);
-
         } catch (IOException e){
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Récupère les données sauvegardées.
+     *
+     * @param ois
+     *      Sert à lire dans le fichier spécifié.
+     */
     public void deserialiser(ObjectInputStream ois){
         Joueur j = new Joueur("",100,3);
         Monstre m = new Monstre("",100,1,10);
