@@ -154,8 +154,6 @@ public class SalleController {
             defaite();
         }
         else if (changeSalle){
-            Partie p =leManager.getPartie();
-            p.setSalleactuelle(p.getSalle(salleActuelle.getNumSalle() + 1));
             joueur.setNumSalle(salleActuelle.getNumSalle() + 1);
             salleActuelle.changerSalle();
             deckListView.getScene().getWindow().hide();

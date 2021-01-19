@@ -75,7 +75,7 @@ public class Manager implements Serializable {
                 oos.writeObject(c);
             }
             oos.writeObject(s);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

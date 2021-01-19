@@ -35,7 +35,6 @@ public class Partie {
      * Dégats de base pour la création des monstres.
      */
     private int degats = 6;
-    private Salle salleactuelle;
 
     /**
      * Constructeur de Partie.
@@ -64,7 +63,6 @@ public class Partie {
             }
             salles.add(s);
         }
-        salleactuelle=getSalle(joueur.getNumSalle());
     }
 
     /**
@@ -81,13 +79,11 @@ public class Partie {
      *      Monstre sauvegardé.
      */
     public Partie(Joueur j, ArrayList<Carte> deck, Salle s, Monstre m) {
-        this(j);
         joueur = j;
         j.setDeck(deck);
         s.setMonstre(m);
         s.toString();
-        salles.remove(s.getNumSalle()-1);
-        salles.add(s.getNumSalle()-1,s);
+        salles.add(s);
     }
 
     /**
