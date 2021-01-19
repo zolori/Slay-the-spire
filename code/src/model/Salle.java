@@ -77,4 +77,11 @@ public class Salle {
         stage.show();
     }
 
+    @Override
+    public String toString() {
+        return "Salle{" +
+                "numSalle=" + numSalle +
+                ", monstre=" + monstre +
+                '}';
+    }
 }

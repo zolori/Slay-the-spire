@@ -10,21 +10,38 @@ import javafx.scene.image.ImageView;
 import model.Carte;
 import java.io.IOException;
 
+/**
+ * TaskCell est la classe qui permet de charger les cartes de façon aléatoire
+ */
 public class TaskCell extends ListCell<Carte> {
-
+    /**
+     * Afficheur de l'image de la carte
+     */
     @FXML
     private ImageView image;
 
+    /**
+     * Zone de texte dans laquelle on affiche le nom de la carte
+     */
     @FXML
     private Label titre;
 
+    /**
+     * Zone de texte dans laquelle on affiche les efets de la carte
+     */
     @FXML
     private Label effet;
 
+    /**
+     * Constructeur de TaskCell
+     */
     public TaskCell() {
         loadFXML();
     }
 
+    /**
+     * Fonction qui permet de charger la nouvelle carte afin de l'afficher
+     */
     private void loadFXML() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Task_cell.fxml"));
@@ -36,6 +53,11 @@ public class TaskCell extends ListCell<Carte> {
         }
     }
 
+    /**
+     * Cette fonction permet de gérer la mise a jour des cartes une fois qu'elles sont utilisées.
+     * @param carte : Carte à changer
+     * @param empty : booleen qui dit si il y a quelque chose à afficher
+     */
     @Override
     protected void updateItem(Carte carte, boolean empty) {
         super.updateItem(carte, empty);

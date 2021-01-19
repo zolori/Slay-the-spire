@@ -66,18 +66,15 @@ public class Manager implements Serializable {
         Partie p = this.getPartie();
         Joueur j = p.getJoueur();
         Salle s = p.getSalle(j.getNumSalle());
-        Monstre m = s.getMonstre();
         List<Carte> deck = new ArrayList<>(j.getDeck());
-
         try {
             oos.writeObject(j);
             ArrayList<Carte> deckS = new ArrayList<>(deck);
             for (int i=0; i<3; i++) {
                 Carte c = deckS.get(i);
-                System.out.println(c.getNom());
                 oos.writeObject(c);
             }
-            oos.writeObject(m);
+            oos.writeObject(s);
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -100,14 +97,11 @@ public class Manager implements Serializable {
                 Carte c = new Carte("", "",1,1,"images/epee.png");
                 Carte c1 = (Carte)ois.readObject();
                 c.setAll(c1);
-                System.out.println(c.getNom());
                 deckS.add(c);
             }
             j.setDeck(deckS);
-            Monstre m1 = ((Monstre) ois.readObject());
-            m.setAll(m1);
-            Salle s = new Salle(j.getNumSalle());
-            s.setMonstre(m);
+            Salle s= (Salle)ois.readObject();
+            m.setAll(s.getMonstre());
             Partie p = new Partie(j,deckS,s,m);
             setPartie(p);
         } catch (final java.io.IOException e) {
@@ -116,5 +110,7 @@ public class Manager implements Serializable {
             e.printStackTrace();
         }
     }
+
+
 
 }
